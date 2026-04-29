@@ -8,22 +8,21 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0f1a;color:#e2e8f0;min-height:100vh;line-height:1.6}
 header{background:linear-gradient(135deg,#6d28d9 0%,#4f46e5 50%,#0ea5e9 100%);padding:28px 20px 22px;text-align:center;position:relative;overflow:hidden}
-header::before{content:'';position:absolute;top:-40px;left:-40px;width:200px;height:200px;background:rgba(255,255,255,0.06);border-radius:50%}
-header::after{content:'';position:absolute;bottom:-60px;right:-30px;width:250px;height:250px;background:rgba(255,255,255,0.04);border-radius:50%}
-header h1{font-size:32px;font-weight:800;color:#fff;letter-spacing:-0.5px;position:relative}
+header h1{font-size:32px;font-weight:800;color:#fff;letter-spacing:-0.5px}
 header h1 span{color:#a5f3fc}
-header .sub{font-size:13px;color:rgba(255,255,255,0.75);margin-top:6px;position:relative}
-header .badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:3px 12px;font-size:11px;color:#fff;margin-top:8px;position:relative}
-.container{max-width:920px;margin:0 auto;padding:24px 16px}
-.welcome-card{background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border:1px solid #3730a3;border-radius:16px;padding:20px 24px;margin-bottom:20px}
-.welcome-card .icon{font-size:32px;flex-shrink:0;margin-top:2px}
+header .sub{font-size:13px;color:rgba(255,255,255,0.8);margin-top:6px}
+header .badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:3px 14px;font-size:12px;color:#fff;margin-top:8px}
+.container{max-width:940px;margin:0 auto;padding:24px 16px}
+.welcome-card{background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border:1px solid #3730a3;border-radius:16px;padding:20px 24px;margin-bottom:20px;display:flex;gap:16px}
+.w-icon{font-size:32px;flex-shrink:0}
 .welcome-card h2{font-size:16px;font-weight:700;color:#a5b4fc;margin-bottom:6px}
 .welcome-card p{font-size:13px;color:#94a3b8;line-height:1.6}
-.welcome-card .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .tag{background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);border-radius:20px;padding:2px 10px;font-size:11px;color:#a5b4fc}
-.input-card{background:#161625;border:1px solid #2d2d4e;border-radius:16px;padding:20px;margin-bottom:18px}
+.card{background:#161625;border:1px solid #2d2d4e;border-radius:16px;padding:22px;margin-bottom:18px}
 .row-between{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.input-label{font-size:14px;font-weight:700;color:#e2e8f0}
+.card-title{font-size:15px;font-weight:700;color:#e2e8f0}
+.card-sub{font-size:12px;color:#64748b;margin-bottom:14px}
 .word-badge{background:#1e1e3a;border:1px solid #3f3f6e;border-radius:20px;padding:3px 12px;font-size:12px;color:#94a3b8}
 textarea{width:100%;height:200px;background:#0f0f1a;color:#e2e8f0;border:1.5px solid #2d2d4e;border-radius:12px;padding:14px;font-size:14px;resize:vertical;font-family:inherit;transition:border-color .2s}
 textarea:focus{outline:none;border-color:#6d28d9}
@@ -31,80 +30,68 @@ textarea::placeholder{color:#3f3f6e}
 .hint{font-size:12px;color:#4b5563;margin-top:8px}
 .hint b{color:#6d28d9}
 .btn-row{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
-.btn-analyze{background:linear-gradient(135deg,#6d28d9,#4f46e5);color:#fff;border:none;padding:12px 32px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .2s}
-.btn-analyze:hover{opacity:.88}
-.btn-analyze:disabled{opacity:.45;cursor:not-allowed}
-.btn-clear{background:#1e1e3a;color:#94a3b8;border:1px solid #2d2d4e;padding:12px 24px;border-radius:12px;font-size:14px;cursor:pointer;transition:background .2s}
-.btn-clear:hover{background:#2d2d4e}
-.spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn-primary{background:linear-gradient(135deg,#6d28d9,#4f46e5);color:#fff;border:none;padding:12px 32px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .2s}
+.btn-primary:hover{opacity:.88}
+.btn-primary:disabled{opacity:.45;cursor:not-allowed}
+.btn-secondary{background:#1e1e3a;color:#94a3b8;border:1px solid #2d2d4e;padding:12px 24px;border-radius:12px;font-size:14px;cursor:pointer;transition:background .2s}
+.btn-secondary:hover{background:#2d2d4e}
+.spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-.results-section{display:none}
-.score-card{background:#161625;border:1px solid #2d2d4e;border-radius:16px;padding:22px;margin-bottom:18px}
-.score-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:12px}
-.score-title{font-size:15px;font-weight:700;color:#e2e8f0}
+#resultsSection{display:none}
 .big-score{font-size:52px;font-weight:800;line-height:1}
-.score-label{font-size:13px;font-weight:600;margin-top:4px}
 .verdict-banner{border-radius:12px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
-.verdict-banner .v-icon{font-size:26px}
-.verdict-banner .v-title{font-size:15px;font-weight:700}
-.verdict-banner .v-sub{font-size:12px;opacity:.85;margin-top:2px}
+.v-icon{font-size:26px}
+.v-title{font-size:15px;font-weight:700}
+.v-sub{font-size:12px;opacity:.85;margin-top:2px}
 .bar-wrap{background:#0f0f1a;border-radius:8px;height:10px;overflow:hidden;margin-bottom:6px}
 .bar-fill{height:100%;border-radius:8px;transition:width 1s ease}
 .bar-labels{display:flex;justify-content:space-between;font-size:11px;color:#4b5563;margin-bottom:14px}
-.signals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:14px}
+.signals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px;margin-top:14px}
 .sig-item{background:#0f0f1a;border-radius:10px;padding:10px 12px;border-left:3px solid #2d2d4e}
-.sig-item.good{border-left-color:#22c55e}
-.sig-item.warn{border-left-color:#f59e0b}
-.sig-item.bad{border-left-color:#ef4444}
+.sig-item.good{border-left-color:#22c55e}.sig-item.warn{border-left-color:#f59e0b}.sig-item.bad{border-left-color:#ef4444}
 .sig-name{font-size:11px;color:#64748b;margin-bottom:2px}
 .sig-val{font-size:13px;font-weight:600;color:#e2e8f0}
-.highlight-section{background:#161625;border:1px solid #2d2d4e;border-radius:16px;padding:22px;margin-bottom:18px}
-.section-title{font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:4px}
-.section-sub{font-size:12px;color:#64748b;margin-bottom:14px}
 .legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#94a3b8}
 .legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-.highlighted-text{background:#0f0f1a;border-radius:12px;padding:16px;font-size:14px;line-height:1.9;color:#e2e8f0;max-height:320px;overflow-y:auto}
-.s-ai-high{background:rgba(239,68,68,0.18);border-bottom:2px solid #ef4444;border-radius:3px;cursor:pointer;position:relative}
-.s-ai-med{background:rgba(245,158,11,0.15);border-bottom:2px solid #f59e0b;border-radius:3px;cursor:pointer;position:relative}
-.s-ai-low{background:rgba(234,179,8,0.12);border-bottom:2px solid #eab308;border-radius:3px;cursor:pointer;position:relative}
-.s-human{background:rgba(34,197,94,0.1);border-bottom:2px solid #22c55e;border-radius:3px;cursor:pointer;position:relative}
-.s-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:0;background:#1e1e3a;border:1px solid #3730a3;border-radius:8px;padding:8px 12px;font-size:12px;color:#a5b4fc;width:220px;z-index:999;white-space:normal;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,0.5);line-height:1.5}
-.s-ai-high:hover .s-tooltip,.s-ai-med:hover .s-tooltip,.s-ai-low:hover .s-tooltip,.s-human:hover .s-tooltip{display:block}
-.chat-section{background:#161625;border:1px solid #2d2d4e;border-radius:16px;padding:22px;margin-bottom:18px}
+.highlighted-text{background:#0f0f1a;border-radius:12px;padding:16px;font-size:14px;line-height:2;color:#e2e8f0;max-height:340px;overflow-y:auto;position:relative}
+.s-high{background:rgba(239,68,68,0.18);border-bottom:2px solid #ef4444;border-radius:3px;cursor:pointer;position:relative;display:inline}
+.s-med{background:rgba(245,158,11,0.15);border-bottom:2px solid #f59e0b;border-radius:3px;cursor:pointer;position:relative;display:inline}
+.s-low{background:rgba(234,179,8,0.12);border-bottom:2px solid #eab308;border-radius:3px;cursor:pointer;position:relative;display:inline}
+.s-human{background:rgba(34,197,94,0.1);border-bottom:2px solid #22c55e;border-radius:3px;cursor:pointer;position:relative;display:inline}
+.s-tip{display:none;position:absolute;bottom:calc(100% + 6px);left:0;background:#1e1e3a;border:1px solid #3730a3;border-radius:8px;padding:8px 12px;font-size:12px;color:#a5b4fc;width:220px;z-index:999;white-space:normal;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.s-high:hover .s-tip,.s-med:hover .s-tip,.s-low:hover .s-tip,.s-human:hover .s-tip{display:block}
 .chat-box{background:#0f0f1a;border-radius:12px;padding:14px;height:220px;overflow-y:auto;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
 .msg{padding:10px 14px;border-radius:10px;font-size:13px;max-width:85%;line-height:1.5}
 .msg.bot{background:#1e1b4b;color:#a5b4fc;align-self:flex-start;border:1px solid #3730a3}
 .msg.user{background:#6d28d9;color:#fff;align-self:flex-end}
-.chat-input-row{display:flex;gap:8px}
+.chat-row{display:flex;gap:8px}
 .chat-input{flex:1;background:#0f0f1a;color:#e2e8f0;border:1.5px solid #2d2d4e;border-radius:10px;padding:10px 14px;font-size:13px;font-family:inherit}
 .chat-input:focus{outline:none;border-color:#6d28d9}
 .btn-send{background:#6d28d9;color:#fff;border:none;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
 .btn-send:hover{opacity:.88}
-.humanizer-section{background:#161625;border:1px solid #2d2d4e;border-radius:16px;padding:22px;margin-bottom:18px}
-.humanizer-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.hum-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
 .hum-label{font-size:13px;color:#94a3b8}
 .hum-select{background:#0f0f1a;color:#e2e8f0;border:1px solid #2d2d4e;border-radius:8px;padding:6px 10px;font-size:13px;font-family:inherit}
-.btn-humanize{background:linear-gradient(135deg,#059669,#0d9488);color:#fff;border:none;padding:10px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
-.btn-humanize:hover{opacity:.88}
-.humanized-output{background:#0f0f1a;border-radius:12px;padding:16px;font-size:14px;line-height:1.9;color:#e2e8f0;min-height:100px;white-space:pre-wrap}
-.copy-btn{background:#1e1e3a;color:#a5b4fc;border:1px solid #3730a3;border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;margin-top:10px}
-.copy-btn:hover{background:#2d2d4e}
-.footer{text-align:center;padding:24px;font-size:12px;color:#374151;border-top:1px solid #1e1e3a;margin-top:8px}
+.btn-green{background:linear-gradient(135deg,#059669,#0d9488);color:#fff;border:none;padding:10px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+.btn-green:hover{opacity:.88}
+.hum-output{background:#0f0f1a;border-radius:12px;padding:16px;font-size:14px;line-height:1.9;color:#e2e8f0;min-height:80px;white-space:pre-wrap;display:none}
+.copy-btn{background:#1e1e3a;color:#a5b4fc;border:1px solid #3730a3;border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;margin-top:10px;display:none}
+.footer{text-align:center;padding:20px;font-size:12px;color:#374151;border-top:1px solid #1e1e3a;margin-top:8px}
+.score-row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px}
 </style>
-</head>
-<body>
+</head><body>
 <header>
   <h1>GPTerminator <span>V3</span></h1>
   <div class="sub">Advanced AI Content Detection &bull; Student-Friendly &bull; 24 Signals</div>
-  <div class="badge">&#127919; Sentence-Level Analysis + AI Assistant + Humanizer</div>
+  <div class="badge">Sentence-Level Analysis + AI Assistant + Humanizer</div>
 </header>
 <div class="container">
-  <div class="welcome-card" style="display:flex;gap:16px">
-    <div class="icon">&#x1F916;</div>
+  <div class="welcome-card">
+    <div class="w-icon">&#x1F916;</div>
     <div>
       <h2>Welcome to GPTerminator V3</h2>
-      <p>Paste your essay or text below to instantly detect AI-generated content. Get color-coded sentence analysis, ask our AI Assistant why specific parts flagged, and use the Humanizer to make AI-written sections sound more natural.</p>
+      <p>Paste your essay or text below to detect AI-generated content. Get color-coded sentence analysis, ask the AI Assistant why parts flagged, and use the Humanizer to rewrite AI sentences naturally.</p>
       <div class="tags">
         <span class="tag">&#x1F4CA; 24 Detection Signals</span>
         <span class="tag">&#x1F3A8; Sentence Highlighting</span>
@@ -115,466 +102,419 @@ textarea::placeholder{color:#3f3f6e}
     </div>
   </div>
 
-  <div class="input-card">
+  <div class="card">
     <div class="row-between">
-      <span class="input-label">&#x1F4DD; Paste Your Text</span>
+      <span class="card-title">&#x1F4DD; Paste Your Text</span>
       <span class="word-badge" id="wc">0 words</span>
     </div>
-    <textarea id="txt" placeholder="Paste your essay, paragraph, or text here (minimum 50 words recommended for best accuracy)..."></textarea>
-    <div class="hint">&#x1F4A1; Tip: The more text you provide, the more accurate the analysis. Works best with <b>100+ words</b>.</div>
+    <textarea id="txt" placeholder="Paste your essay, paragraph, or text here (minimum 50 words recommended)..."></textarea>
+    <div class="hint">&#x1F4A1; Tip: Works best with <b>100+ words</b>. No text is ever sent to a server.</div>
     <div class="btn-row">
-      <button class="btn-analyze" id="analyzeBtn" onclick="runAnalysis()">
-        <span id="btnText">&#x1F50D; Analyze Text</span>
+      <button class="btn-primary" id="analyzeBtn" onclick="runAnalysis()">
+        &#x1F50D; Analyze Text
         <div class="spinner" id="spin"></div>
       </button>
-      <button class="btn-clear" onclick="clearAll()">&#x1F5D1; Clear</button>
+      <button class="btn-secondary" onclick="clearAll()">&#x1F5D1; Clear</button>
     </div>
   </div>
 
-  <div class="results-section" id="resultsSection">
-    <div class="score-card">
-      <div class="score-header">
+  <div id="resultsSection">
+    <div class="card">
+      <div class="score-row">
         <div>
-          <div class="score-title">&#x1F4CA; AI Probability Score</div>
+          <div class="card-title">&#x1F4CA; AI Probability Score</div>
           <div style="margin-top:8px">
             <div class="big-score" id="scoreNum" style="color:#22c55e">0%</div>
-            <div class="score-label" id="scoreLabel" style="color:#22c55e">Likely Human</div>
+            <div style="font-size:13px;font-weight:600;color:#22c55e" id="scoreLabel">Likely Human</div>
           </div>
         </div>
         <div style="text-align:right">
           <div style="font-size:12px;color:#64748b;margin-bottom:4px">Confidence</div>
-          <div id="confidenceVal" style="font-size:20px;font-weight:700;color:#a5b4fc">--</div>
-          <div style="font-size:11px;color:#64748b">analysis depth</div>
+          <div id="confVal" style="font-size:20px;font-weight:700;color:#a5b4fc">--</div>
+          <div style="font-size:11px;color:#64748b">based on word count</div>
         </div>
       </div>
       <div class="verdict-banner" id="verdictBanner">
-        <div class="v-icon" id="verdictIcon">&#x2705;</div>
-        <div>
-          <div class="v-title" id="verdictTitle">Analyzing...</div>
-          <div class="v-sub" id="verdictSub"></div>
-        </div>
+        <div class="v-icon" id="vIcon">&#x2705;</div>
+        <div><div class="v-title" id="vTitle">Ready</div><div class="v-sub" id="vSub"></div></div>
       </div>
       <div class="bar-wrap"><div class="bar-fill" id="barFill" style="width:0%;background:#22c55e"></div></div>
       <div class="bar-labels"><span>Human (0%)</span><span>Borderline (50%)</span><span>AI (100%)</span></div>
-      <div style="font-size:13px;font-weight:700;color:#94a3b8;margin-top:16px;margin-bottom:8px">Signal Breakdown</div>
+      <div style="font-size:13px;font-weight:700;color:#94a3b8;margin-top:16px;margin-bottom:8px">Signal Breakdown (24 signals)</div>
       <div class="signals-grid" id="sigGrid"></div>
     </div>
 
-    <div class="highlight-section">
-      <div class="section-title">&#x1F3A8; Sentence-Level Analysis</div>
-      <div class="section-sub">Hover over any sentence to see why it was flagged</div>
+    <div class="card">
+      <div class="card-title">&#x1F3A8; Sentence-Level Analysis</div>
+      <div class="card-sub">Hover any sentence to see why it was flagged</div>
       <div class="legend">
         <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>High AI (70%+)</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>Medium AI (50-70%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>Medium (50-70%)</div>
         <div class="legend-item"><div class="legend-dot" style="background:#eab308"></div>Borderline (30-50%)</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Likely Human (&lt;30%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Human (&lt;30%)</div>
       </div>
       <div class="highlighted-text" id="highlightedText"></div>
     </div>
 
-    <div class="chat-section">
-      <div class="section-title">&#x1F916; AI Assistant</div>
-      <div class="section-sub">Ask about specific parts of the text, why they flagged, or how to improve</div>
+    <div class="card">
+      <div class="card-title">&#x1F916; AI Assistant</div>
+      <div class="card-sub">Ask about specific sentences, scores, or how to improve</div>
       <div class="chat-box" id="chatBox">
-        <div class="msg bot">Hi! I&#39;ve analyzed your text. Ask me anything &mdash; like "which sentences are most AI?" or "why did this score so high?" or "what can I fix?"</div>
+        <div class="msg bot">Hi! I analyzed your text. Ask me: "which sentences are most AI?" or "why did this score high?" or "what can I fix?"</div>
       </div>
-      <div class="chat-input-row">
+      <div class="chat-row">
         <input class="chat-input" id="chatInput" placeholder="Ask about the analysis..." onkeydown="if(event.key==='Enter')sendChat()">
         <button class="btn-send" onclick="sendChat()">Send</button>
       </div>
     </div>
 
-    <div class="humanizer-section">
-      <div class="section-title">&#x270D; AI Humanizer</div>
-      <div class="section-sub">Rewrites AI-flagged sentences using the style and tone of the human-written portions of your text</div>
-      <div class="humanizer-controls">
-        <span class="hum-label">Rewrite intensity:</span>
+    <div class="card">
+      <div class="card-title">&#x270D; AI Humanizer</div>
+      <div class="card-sub">Rewrites AI-flagged sentences using the style of your human-written portions</div>
+      <div class="hum-controls">
+        <span class="hum-label">Intensity:</span>
         <select class="hum-select" id="humIntensity">
           <option value="light">Light (minor tweaks)</option>
           <option value="medium" selected>Medium (balanced)</option>
-          <option value="heavy">Heavy (significant rewrite)</option>
+          <option value="heavy">Heavy (major rewrite)</option>
         </select>
-        <button class="btn-humanize" onclick="doHumanize()">&#x2728; Humanize AI Sentences</button>
+        <button class="btn-green" onclick="doHumanize()">&#x2728; Humanize AI Sentences</button>
       </div>
-      <div class="humanized-output" id="humanizedOutput" style="display:none"></div>
-      <div id="humanizedButtons" style="display:none">
-        <button class="copy-btn" onclick="copyHumanized()">&#x1F4CB; Copy Humanized Text</button>
-      </div>
+      <div class="hum-output" id="humOutput"></div>
+      <button class="copy-btn" id="copyBtn" onclick="copyHumanized()">&#x1F4CB; Copy Result</button>
     </div>
   </div>
 </div>
-<div class="footer">GPTerminator V3 &bull; All analysis runs locally in your browser &bull; No text is ever sent to a server &bull; 100% Private</div>
-<script>
-// ============================================================
-// GPTerminator V3 - Complete Detection Engine
-// 24 signals, sentence-level scoring, AI assistant, humanizer
-// ============================================================
+<div class="footer">GPTerminator V3 &bull; All analysis runs locally &bull; No text sent to servers &bull; 100% Private</div><script>
+// GPTerminator V3 - Detection Engine (24 signals)
+// Uses string concatenation only - no nested template literals
 
-let _analysisData = null;
+var _data = null;
 
-// ---- Word / sentence helpers ----
-function sentences(t){return t.match(/[^.!?]+[.!?]+/g)||[t]}
-function words(t){return t.toLowerCase().match(/\b[a-z']+\b/g)||[]}
-function wordsFull(t){return t.match(/\b[a-zA-Z']+\b/g)||[]}
+// Helpers
+function getSents(t){return t.match(/[^.!?]+[.!?]+/g)||[t];}
+function getWords(t){return t.toLowerCase().match(/\b[a-z']+\b/g)||[];}
 
-// ---- Signal definitions ----
-const TRANSITIONS=['furthermore','moreover','additionally','consequently','nevertheless','however','therefore','thus','hence','although','whereas','meanwhile','subsequently','ultimately','specifically','notably','importantly','regarding','considering','accordingly','indeed','certainly','clearly','obviously'];
-const HEDGES=['may','might','could','would','seem','appears','suggests','indicates','arguably','potentially','possibly','presumably','ostensibly','purportedly','allegedly'];
-const FILLERS=['it is important to note','it is worth noting','it should be noted','in conclusion','in summary','to summarize','as mentioned','as noted','first and foremost','last but not least','needless to say','without a doubt','it goes without saying','at the end of the day','in the final analysis','on the other hand','on the contrary','by the same token','in light of','with respect to','in terms of','in order to','due to the fact that','for the purpose of'];
-const PASSIVEAUX=['is','are','was','were','be','been','being'];
-const CONTRACTIONS=["n't","'re","'ve","'ll","'d","'m","'s"];
-const RARE_WORDS=['utilize','facilitate','implementation','methodology','aforementioned','paradigm','framework','leverage','synergy','delve','comprehensive','multifaceted','nuanced','intricate','elucidate','ascertain','necessitate','promulgate','encapsulate','epitomize','exemplify','substantiate','proliferate','culminate','underscore','ameliorate','holistic','robust','optimal','pivotal','paramount'];
+// Signal word lists
+var TRANS=['furthermore','moreover','additionally','consequently','nevertheless','however','therefore','thus','hence','although','whereas','meanwhile','subsequently','ultimately','specifically','notably','importantly','regarding','considering','accordingly','indeed','certainly','clearly','obviously'];
+var HEDGES=['may','might','could','would','seem','appears','suggests','indicates','arguably','potentially','possibly','presumably'];
+var FILLERS=['it is important to note','it is worth noting','it should be noted','in conclusion','in summary','to summarize','as mentioned','first and foremost','last but not least','needless to say','it goes without saying','at the end of the day','in the final analysis'];
+var PASSAUX=['is','are','was','were','be','been','being'];
+var RARE=['utilize','facilitate','implementation','methodology','aforementioned','paradigm','framework','leverage','synergy','delve','comprehensive','multifaceted','nuanced','intricate','elucidate','ascertain','necessitate','promulgate','encapsulate','epitomize','exemplify','substantiate','proliferate','culminate','underscore','ameliorate','holistic','robust','optimal','pivotal','paramount'];
+var FORMAL=['therefore','however','moreover','furthermore','consequently','nevertheless','notwithstanding','subsequently','accordingly','hence','albeit','whilst','amongst','upon'];
+var CONTR=["n't","'re","'ve","'ll","'d","'m"];
 
-function sig_avgSentLen(sents){if(!sents.length)return 15;return sents.reduce((a,s)=>a+words(s).length,0)/sents.length}
-function sig_burstiness(sents){if(sents.length<3)return 0;const lens=sents.map(s=>words(s).length);const m=lens.reduce((a,b)=>a+b,0)/lens.length;const sd=Math.sqrt(lens.reduce((a,b)=>a+(b-m)**2,0)/lens.length);return m>0?sd/m:0}
-function sig_ttr(ws){if(!ws.length)return 1;return new Set(ws).size/ws.length}
-function sig_mattr(ws,w=25){if(ws.length<w)return sig_ttr(ws);let s=0;for(let i=0;i<=ws.length-w;i++)s+=new Set(ws.slice(i,i+w)).size/w;return s/(ws.length-w+1)}
-function sig_avgWordLen(ws){if(!ws.length)return 5;return ws.reduce((a,b)=>a+b.length,0)/ws.length}
-function sig_transitionDensity(ws){return ws.filter(w=>TRANSITIONS.includes(w)).length/Math.max(ws.length,1)}
-function sig_hedgeDensity(ws){return ws.filter(w=>HEDGES.includes(w)).length/Math.max(ws.length,1)}
-function sig_firstPerson(ws){return ws.filter(w=>['i','me','my','myself','mine','we','our','us'].includes(w)).length/Math.max(ws.length,1)}
-function sig_contractionRate(text){return CONTRACTIONS.reduce((a,c)=>a+(text.toLowerCase().split(c).length-1),0)/Math.max(words(text).length,1)}
-function sig_passiveVoice(sents){let count=0;sents.forEach(s=>{const ws2=words(s);ws2.forEach((w,i)=>{if(PASSIVEAUX.includes(w)&&i<ws2.length-1&&ws2[i+1].match(/ed$/))count++;})});return count/Math.max(sents.length,1)}
-function sig_fillerDensity(text){const lt=text.toLowerCase();return FILLERS.filter(f=>lt.includes(f)).length/Math.max(sentences(text).length,1)}
-function sig_bigramRep(ws){if(ws.length<4)return 0;const bg={};for(let i=0;i<ws.length-1;i++){const b=ws[i]+' '+ws[i+1];bg[b]=(bg[b]||0)+1}const vals=Object.values(bg);return vals.filter(v=>v>1).length/Math.max(Object.keys(bg).length,1)}
-function sig_punctEntropy(text){const pc=text.match(/[.,;:!?]/g)||[];if(!pc.length)return 0;const freq={};pc.forEach(c=>freq[c]=(freq[c]||0)+1);const total=pc.length;return -Object.values(freq).reduce((a,v)=>a+(v/total)*Math.log2(v/total),0)}
-function sig_longWordRatio(ws){return ws.filter(w=>w.length>7).length/Math.max(ws.length,1)}
-function sig_exclQuestion(text){return (text.match(/[!?]/g)||[]).length/Math.max(sentences(text).length,1)}
-function sig_conjStarters(sents){const conj=['and','but','or','so','yet','for','nor','although','however','therefore','moreover','furthermore','additionally'];return sents.filter(s=>conj.includes(words(s)[0])).length/Math.max(sents.length,1)}
-function sig_numericDensity(text){return (text.match(/\d+\.?\d*/g)||[]).length/Math.max(words(text).length,1)}
-function sig_rareWordRatio(ws){return ws.filter(w=>RARE_WORDS.includes(w)).length/Math.max(ws.length,1)}
-function sig_sentEndVariety(sents){const ends=sents.map(s=>s.trim().slice(-1));const unique=new Set(ends).size;return unique/Math.max(sents.length,1)}
-function sig_paraLenVariance(text){const paras=text.split(/\n\n+/).map(p=>p.trim()).filter(p=>p.length>10);if(paras.length<2)return 0;const lens=paras.map(p=>words(p).length);const m=lens.reduce((a,b)=>a+b,0)/lens.length;return Math.sqrt(lens.reduce((a,b)=>a+(b-m)**2,0)/lens.length)}
-function sig_avgCommaPerSent(sents){return sents.reduce((a,s)=>(a+(s.match(/,/g)||[]).length),0)/Math.max(sents.length,1)}
-function sig_formalVocab(ws){const formal=['therefore','however','moreover','furthermore','consequently','nevertheless','notwithstanding','subsequently','accordingly','hence','albeit','whilst','amongst','upon','henceforth'];return ws.filter(w=>formal.includes(w)).length/Math.max(ws.length,1)}
-function sig_imperativeSentences(sents){const imperatives=['note that','consider','ensure','provide','utilize','implement','examine','analyze','demonstrate','establish'];return sents.filter(s=>imperatives.some(imp=>s.toLowerCase().trim().startsWith(imp))).length/Math.max(sents.length,1)}
-function sig_questionMarks(sents){return sents.filter(s=>s.trim().endsWith('?')).length/Math.max(sents.length,1)}
+function norm(v,lo,hi){return Math.max(0,Math.min(1,(v-lo)/(hi-lo)));}
 
-// ---- Score normalizer ----
-function norm(val,lo,hi){return Math.max(0,Math.min(1,(val-lo)/(hi-lo)))}
+// 24 Signal functions
+function s_avgSL(sents){return sents.length?sents.reduce(function(a,s){return a+getWords(s).length;},0)/sents.length:15;}
+function s_burst(sents){if(sents.length<3)return 0;var lens=sents.map(function(s){return getWords(s).length;});var m=lens.reduce(function(a,b){return a+b;},0)/lens.length;var sd=Math.sqrt(lens.reduce(function(a,b){return a+(b-m)*(b-m);},0)/lens.length);return m>0?sd/m:0;}
+function s_ttr(ws){return ws.length?new Set(ws).size/ws.length:1;}
+function s_mattr(ws){var w=25;if(ws.length<w)return s_ttr(ws);var sum=0;for(var i=0;i<=ws.length-w;i++)sum+=new Set(ws.slice(i,i+w)).size/w;return sum/(ws.length-w+1);}
+function s_awl(ws){return ws.length?ws.reduce(function(a,b){return a+b.length;},0)/ws.length:5;}
+function s_trans(ws){return ws.filter(function(w){return TRANS.indexOf(w)>=0;}).length/Math.max(ws.length,1);}
+function s_hedge(ws){return ws.filter(function(w){return HEDGES.indexOf(w)>=0;}).length/Math.max(ws.length,1);}
+function s_fp(ws){return ws.filter(function(w){return ['i','me','my','myself','mine','we','our','us'].indexOf(w)>=0;}).length/Math.max(ws.length,1);}
+function s_contr(text){return CONTR.reduce(function(a,c){return a+(text.toLowerCase().split(c).length-1);},0)/Math.max(getWords(text).length,1);}
+function s_pass(sents){var c=0;sents.forEach(function(s){var ws=getWords(s);ws.forEach(function(w,i){if(PASSAUX.indexOf(w)>=0&&i<ws.length-1&&ws[i+1].match(/ed$/))c++;});});return c/Math.max(sents.length,1);}
+function s_fill(text){var lt=text.toLowerCase();return FILLERS.filter(function(f){return lt.indexOf(f)>=0;}).length/Math.max(getSents(text).length,1);}
+function s_bigram(ws){if(ws.length<4)return 0;var bg={};for(var i=0;i<ws.length-1;i++){var b=ws[i]+' '+ws[i+1];bg[b]=(bg[b]||0)+1;}var vals=Object.values(bg);return vals.filter(function(v){return v>1;}).length/Math.max(Object.keys(bg).length,1);}
+function s_punc(text){var pc=text.match(/[.,;:!?]/g)||[];if(!pc.length)return 0;var freq={};pc.forEach(function(c){freq[c]=(freq[c]||0)+1;});var tot=pc.length;return -Object.values(freq).reduce(function(a,v){return a+(v/tot)*Math.log2(v/tot);},0);}
+function s_longw(ws){return ws.filter(function(w){return w.length>7;}).length/Math.max(ws.length,1);}
+function s_exq(text){return (text.match(/[!?]/g)||[]).length/Math.max(getSents(text).length,1);}
+function s_conjS(sents){var c=['and','but','or','so','yet','for','nor','although','however','therefore','moreover','furthermore'];return sents.filter(function(s){var w=getWords(s)[0];return c.indexOf(w)>=0;}).length/Math.max(sents.length,1);}
+function s_num(text){return (text.match(/\d+\.?\d*/g)||[]).length/Math.max(getWords(text).length,1);}
+function s_rare(ws){return ws.filter(function(w){return RARE.indexOf(w)>=0;}).length/Math.max(ws.length,1);}
+function s_sev(sents){var ends=sents.map(function(s){return s.trim().slice(-1);});return new Set(ends).size/Math.max(sents.length,1);}
+function s_parv(text){var p=text.split(/\n\n+/).map(function(x){return x.trim();}).filter(function(x){return x.length>10;});if(p.length<2)return 0;var lens=p.map(function(x){return getWords(x).length;});var m=lens.reduce(function(a,b){return a+b;},0)/lens.length;return Math.sqrt(lens.reduce(function(a,b){return a+(b-m)*(b-m);},0)/lens.length);}
+function s_comma(sents){return sents.reduce(function(a,s){return a+(s.match(/,/g)||[]).length;},0)/Math.max(sents.length,1);}
+function s_formal(ws){return ws.filter(function(w){return FORMAL.indexOf(w)>=0;}).length/Math.max(ws.length,1);}
+function s_imper(sents){var imp=['note that','consider','ensure','provide','utilize','implement','examine','analyze','demonstrate','establish'];return sents.filter(function(s){return imp.some(function(x){return s.toLowerCase().trim().indexOf(x)===0;});}).length/Math.max(sents.length,1);}
+function s_qmark(sents){return sents.filter(function(s){return s.trim().slice(-1)==='?';}).length/Math.max(sents.length,1);}
 
-// ---- Full-text analysis ----
-function analyzeText(text){
-  const ws=words(text);
-  const sents=sentences(text);
-  const contrRate=sig_contractionRate(text);
-  const firstP=sig_firstPerson(ws);
-  const transD=sig_transitionDensity(ws);
-  const hedgeD=sig_hedgeDensity(ws);
-  const avgSL=sig_avgSentLen(sents);
-  const burst=sig_burstiness(sents);
-  const ttr=sig_ttr(ws);
-  const mattr=sig_mattr(ws);
-  const avgWL=sig_avgWordLen(ws);
-  const passive=sig_passiveVoice(sents);
-  const filler=sig_fillerDensity(text);
-  const bigram=sig_bigramRep(ws);
-  const punctE=sig_punctEntropy(text);
-  const longW=sig_longWordRatio(ws);
-  const exclQ=sig_exclQuestion(text);
-  const conjS=sig_conjStarters(sents);
-  const numD=sig_numericDensity(text);
-  const rareW=sig_rareWordRatio(ws);
-  const sentEnd=sig_sentEndVariety(sents);
-  const paraV=sig_paraLenVariance(text);
-  const commaPS=sig_avgCommaPerSent(sents);
-  const formalV=sig_formalVocab(ws);
-  const imperS=sig_imperativeSentences(sents);
-  const qMarks=sig_questionMarks(sents);
-
-  // AI indicators (higher val = more AI-like):
-  const scores={
-    avgSL:        norm(avgSL,10,30)*100,
-    burst:        (1-norm(burst,0.2,0.9))*100,
-    ttr:          (1-norm(ttr,0.45,0.75))*100,
-    mattr:        (1-norm(mattr,0.6,0.85))*100,
-    avgWL:        norm(avgWL,4.5,7.5)*100,
-    transition:   norm(transD,0.01,0.08)*100,
-    hedge:        norm(hedgeD,0.005,0.04)*100,
-    firstPerson:  (1-norm(firstP,0,0.05))*100,
-    contraction:  (1-norm(contrRate,0.005,0.05))*100,
-    passive:      norm(passive,0.05,0.5)*100,
-    filler:       norm(filler,0.05,0.5)*100,
-    bigram:       norm(bigram,0.02,0.2)*100,
-    punctE:       (1-norm(punctE,0.5,2.5))*100,
-    longWord:     norm(longW,0.15,0.45)*100,
-    exclQ:        (1-norm(exclQ,0,0.3))*100,
-    conjStart:    norm(conjS,0,0.25)*100,
-    numeric:      norm(numD,0,0.05)*100,
-    rareWord:     norm(rareW,0,0.06)*100,
-    sentEnd:      (1-norm(sentEnd,0.05,0.4))*100,
-    paraVar:      (1-norm(paraV,0,50))*100,
-    comma:        norm(commaPS,0.5,2.5)*100,
-    formal:       norm(formalV,0.005,0.04)*100,
-    imper:        norm(imperS,0,0.2)*100,
-    qMarks:       (1-norm(qMarks,0,0.15))*100
+// Full text analysis - returns score + signals
+function analyzeText(text) {
+  var ws=getWords(text);
+  var sents=getSents(text);
+  var scores={
+    avgSL:    norm(s_avgSL(sents),10,30)*100,
+    burst:    (1-norm(s_burst(sents),0.2,0.9))*100,
+    ttr:      (1-norm(s_ttr(ws),0.45,0.75))*100,
+    mattr:    (1-norm(s_mattr(ws),0.6,0.85))*100,
+    avgWL:    norm(s_awl(ws),4.5,7.5)*100,
+    trans:    norm(s_trans(ws),0.01,0.08)*100,
+    hedge:    norm(s_hedge(ws),0.005,0.04)*100,
+    firstP:   (1-norm(s_fp(ws),0,0.05))*100,
+    contr:    (1-norm(s_contr(text),0.005,0.05))*100,
+    passive:  norm(s_pass(sents),0.05,0.5)*100,
+    filler:   norm(s_fill(text),0.05,0.5)*100,
+    bigram:   norm(s_bigram(ws),0.02,0.2)*100,
+    punctE:   (1-norm(s_punc(text),0.5,2.5))*100,
+    longW:    norm(s_longw(ws),0.15,0.45)*100,
+    exclQ:    (1-norm(s_exq(text),0,0.3))*100,
+    conjS:    norm(s_conjS(sents),0,0.25)*100,
+    numeric:  norm(s_num(text),0,0.05)*100,
+    rareW:    norm(s_rare(ws),0,0.06)*100,
+    sentEnd:  (1-norm(s_sev(sents),0.05,0.4))*100,
+    paraV:    (1-norm(s_parv(text),0,50))*100,
+    comma:    norm(s_comma(sents),0.5,2.5)*100,
+    formal:   norm(s_formal(ws),0.005,0.04)*100,
+    imper:    norm(s_imper(sents),0,0.2)*100,
+    qmark:    (1-norm(s_qmark(sents),0,0.15))*100
   };
-
-  // Weighted average
-  const weights={avgSL:1.2,burst:1.5,ttr:1.3,mattr:1.3,avgWL:1.0,transition:1.4,hedge:0.8,firstPerson:1.4,contraction:1.5,passive:1.1,filler:1.3,bigram:0.9,punctE:0.8,longWord:1.0,exclQ:0.7,conjStart:0.8,numeric:0.6,rareWord:1.1,sentEnd:0.9,paraVar:1.0,comma:0.8,formal:1.0,imper:0.7,qMarks:0.7};
-  const totalW=Object.values(weights).reduce((a,b)=>a+b,0);
-  let raw=Object.keys(scores).reduce((a,k)=>a+scores[k]*weights[k],0)/totalW;
-  // Calibration: scale down slightly to match ZeroGPT range
+  var wts={avgSL:1.2,burst:1.5,ttr:1.3,mattr:1.3,avgWL:1.0,trans:1.4,hedge:0.8,firstP:1.4,contr:1.5,passive:1.1,filler:1.3,bigram:0.9,punctE:0.8,longW:1.0,exclQ:0.7,conjS:0.8,numeric:0.6,rareW:1.1,sentEnd:0.9,paraV:1.0,comma:0.8,formal:1.0,imper:0.7,qmark:0.7};
+  var totalW=Object.values(wts).reduce(function(a,b){return a+b;},0);
+  var raw=Object.keys(scores).reduce(function(a,k){return a+scores[k]*wts[k];},0)/totalW;
   raw=raw*0.78;
-  const finalScore=Math.min(98,Math.max(2,Math.round(raw)));
-
-  return{score:finalScore,signals:scores,raw:{avgSL,burst,ttr,mattr,avgWL,transD,hedgeD,firstP,contrRate,passive,filler,bigram,punctE,longW,exclQ,conjS,numD,rareW,sentEnd,paraV,commaPS,formalV,imperS,qMarks},sents,ws};
+  return {score:Math.min(98,Math.max(2,Math.round(raw))),signals:scores,sents:sents,ws:ws,text:text};
 }
 
-// ---- Score individual sentence ----
-function scoreSentence(s){
-  const ws=words(s);
+// Score individual sentence
+function scoreSent(s){
+  var ws=getWords(s);
   if(ws.length<4)return 50;
-  const sents=[s];
-  let score=0;let count=0;
-  const add=(v,w)=>{score+=v*w;count+=w};
+  var sents=[s];
+  var score=0,count=0;
+  function add(v,w){score+=v*w;count+=w;}
   add(norm(ws.length,8,28)*100,1.2);
-  add((1-norm(sig_firstPerson(ws),0,0.06))*100,1.4);
-  add((1-norm(sig_contractionRate(s),0.005,0.05))*100,1.5);
-  add(norm(sig_transitionDensity(ws),0.005,0.1)*100,1.3);
-  add(norm(sig_rareWordRatio(ws),0,0.1)*100,1.2);
-  add(norm(sig_longWordRatio(ws),0.1,0.5)*100,1.0);
-  add(norm(sig_avgWordLen(ws),4.0,7.5)*100,0.9);
-  add(norm(sig_passiveVoice(sents),0,0.8)*100,1.0);
-  add(norm(sig_fillerDensity(s),0,0.5)*100,1.2);
-  add(norm(sig_formalVocab(ws),0,0.06)*100,1.0);
-  const raw=(score/count)*0.80;
-  return Math.min(96,Math.max(4,Math.round(raw)));
+  add((1-norm(s_fp(ws),0,0.06))*100,1.4);
+  add((1-norm(s_contr(s),0.005,0.05))*100,1.5);
+  add(norm(s_trans(ws),0.005,0.1)*100,1.3);
+  add(norm(s_rare(ws),0,0.1)*100,1.2);
+  add(norm(s_longw(ws),0.1,0.5)*100,1.0);
+  add(norm(s_awl(ws),4.0,7.5)*100,0.9);
+  add(norm(s_pass(sents),0,0.8)*100,1.0);
+  add(norm(s_fill(s),0,0.5)*100,1.2);
+  add(norm(s_formal(ws),0,0.06)*100,1.0);
+  return Math.min(96,Math.max(4,Math.round((score/count)*0.80)));
 }
 
-// ---- Get sentence flags ----
-function getSentenceFlags(s,score){
-  const ws=words(s);const flags=[];
-  if(ws.length>20)flags.push('Long sentence');
-  if(ws.length<8&&ws.length>3)flags.push('Short sentence');
-  if(sig_firstPerson(ws)<0.01&&ws.length>8)flags.push('No first-person');
-  if(sig_contractionRate(s)<0.01&&ws.length>8)flags.push('No contractions');
-  if(sig_transitionDensity(ws)>0.04)flags.push('Transition words');
-  if(sig_rareWordRatio(ws)>0.05)flags.push('Formal/rare words');
-  if(sig_passiveVoice([s])>0.3)flags.push('Passive voice');
-  if(FILLERS.some(f=>s.toLowerCase().includes(f)))flags.push('Filler phrases');
-  if(sig_formalVocab(ws)>0.04)flags.push('Formal vocabulary');
-  if(sig_longWordRatio(ws)>0.4)flags.push('Many long words');
-  if(!flags.length)flags.push(score<30?'Natural style':'Neutral sentence');
-  return flags;
+// Get readable flags for a sentence
+function getFlags(s,sc){
+  var ws=getWords(s);var f=[];
+  if(ws.length>20)f.push('Long sentence');
+  if(ws.length<8&&ws.length>3)f.push('Short/choppy');
+  if(s_fp(ws)<0.01&&ws.length>8)f.push('No first-person');
+  if(s_contr(s)<0.01&&ws.length>8)f.push('No contractions');
+  if(s_trans(ws)>0.04)f.push('Transition words');
+  if(s_rare(ws)>0.05)f.push('Formal/rare vocab');
+  if(s_pass([s])>0.3)f.push('Passive voice');
+  if(FILLERS.some(function(x){return s.toLowerCase().indexOf(x)>=0;}))f.push('Filler phrases');
+  if(s_formal(ws)>0.04)f.push('Formal vocabulary');
+  if(s_longw(ws)>0.4)f.push('Many long words');
+  if(!f.length)f.push(sc<30?'Natural style':'Neutral');
+  return f;
 }
 
-// ---- Render highlighted text ----
+// Render highlighted sentences
 function renderHighlights(text,sents){
-  const ht=document.getElementById('highlightedText');
-  let html='';
-  let remaining=text;
-  sents.forEach(sent=>{
-    const sc=scoreSentence(sent);
-    const flags=getSentenceFlags(sent,sc);
-    let cls='s-human';
-    if(sc>=70)cls='s-ai-high';
-    else if(sc>=50)cls='s-ai-med';
-    else if(sc>=30)cls='s-ai-low';
-    const tooltip=sc+'% AI &mdash; '+flags.join(', ');
-    const escaped=sent.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    html+=`<span class="${cls}">${escaped}<span class="s-tooltip">${tooltip}</span></span> `;
+  var el=document.getElementById('highlightedText');
+  var html='';
+  sents.forEach(function(sent){
+    var sc=scoreSent(sent);
+    var flags=getFlags(sent,sc);
+    var cls='s-human';
+    if(sc>=70)cls='s-high';
+    else if(sc>=50)cls='s-med';
+    else if(sc>=30)cls='s-low';
+    var tip=sc+'% AI - '+flags.join(', ');
+    var esc=sent.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    html+='<span class="'+cls+'">'+esc+'<span class="s-tip">'+tip+'</span></span> ';
   });
-  ht.innerHTML=html||text;
+  el.innerHTML=html||text;
 }
 
-// ---- Run analysis ----
+// Main analysis runner
 function runAnalysis(){
-  const text=document.getElementById('txt').value.trim();
-  if(!text||words(text).length<10){alert('Please enter at least 10 words.');return}
+  var text=document.getElementById('txt').value.trim();
+  if(!text||getWords(text).length<10){alert('Please enter at least 10 words.');return;}
   document.getElementById('analyzeBtn').disabled=true;
-  document.getElementById('btnText').style.display='none';
   document.getElementById('spin').style.display='inline-block';
-  setTimeout(()=>{
-    const res=analyzeText(text);
-    _analysisData=res;_analysisData.text=text;
-    renderResults(res,text);
+  setTimeout(function(){
+    var res=analyzeText(text);
+    _data=res;
+    showResults(res,text);
     document.getElementById('analyzeBtn').disabled=false;
-    document.getElementById('btnText').style.display='inline';
     document.getElementById('spin').style.display='none';
     document.getElementById('resultsSection').style.display='block';
-    document.getElementById('resultsSection').scrollIntoView({behavior:'smooth',block:'start'});
-    // Reset chat
-    const cb=document.getElementById('chatBox');
-    cb.innerHTML='<div class="msg bot">Analysis complete! I found a <b>'+res.score+'% AI score</b>. Ask me anything about the results!</div>';
-    document.getElementById('humanizedOutput').style.display='none';
-    document.getElementById('humanizedButtons').style.display='none';
+    document.getElementById('resultsSection').scrollIntoView({behavior:'smooth'});
+    document.getElementById('chatBox').innerHTML='<div class="msg bot">Analysis done! Score: <b>'+res.score+'% AI</b>. Ask me anything about the results!</div>';
+    document.getElementById('humOutput').style.display='none';
+    document.getElementById('copyBtn').style.display='none';
   },400);
 }
 
-function renderResults(res,text){
-  const score=res.score;
-  let color='#22c55e';let label='Likely Human';let icon='&#x2705;';let vBg='rgba(34,197,94,0.12)';let vBorder='#166534';
-  if(score>=70){color='#ef4444';label='Likely AI';icon='&#x26A0;';vBg='rgba(239,68,68,0.12)';vBorder='#7f1d1d'}
-  else if(score>=50){color='#f59e0b';label='Possibly AI';icon='&#x1F914;';vBg='rgba(245,158,11,0.12)';vBorder='#78350f'}
-  else if(score>=30){color='#eab308';label='Borderline';icon='&#x1F4CA;';vBg='rgba(234,179,8,0.12)';vBorder='#713f12'}
-  document.getElementById('scoreNum').textContent=score+'%';
+function showResults(res,text){
+  var sc=res.score;
+  var color='#22c55e',label='Likely Human',icon='&#x2705;',vbg='rgba(34,197,94,0.12)',vbord='#166534';
+  if(sc>=70){color='#ef4444';label='Likely AI';icon='&#x26A0;';vbg='rgba(239,68,68,0.12)';vbord='#7f1d1d';}
+  else if(sc>=50){color='#f59e0b';label='Possibly AI';icon='&#x1F914;';vbg='rgba(245,158,11,0.12)';vbord='#78350f';}
+  else if(sc>=30){color='#eab308';label='Borderline';icon='&#x1F4CA;';vbg='rgba(234,179,8,0.12)';vbord='#713f12';}
+  document.getElementById('scoreNum').textContent=sc+'%';
   document.getElementById('scoreNum').style.color=color;
   document.getElementById('scoreLabel').textContent=label;
   document.getElementById('scoreLabel').style.color=color;
-  document.getElementById('barFill').style.width=score+'%';
+  document.getElementById('barFill').style.width=sc+'%';
   document.getElementById('barFill').style.background=color;
-  const wl=words(text).length;
-  document.getElementById('confidenceVal').textContent=wl>=200?'High':wl>=100?'Medium':'Low';
-  const vb=document.getElementById('verdictBanner');
-  vb.style.background=vBg;vb.style.border='1px solid '+vBorder;
-  document.getElementById('verdictIcon').innerHTML=icon;
-  document.getElementById('verdictTitle').textContent=label+' — '+score+'% AI Probability';
-  const subs={Likely AI:'Multiple strong AI patterns detected. Review highlighted sentences.',Possibly AI:'Several AI-like patterns found. Some sentences may need revision.','Borderline':'Mixed signals. Could be AI-assisted or a formal writing style.','Likely Human':'Text appears naturally written with human-like patterns.'};
-  document.getElementById('verdictSub').textContent=subs[label]||'';
-
-  const sigNames={avgSL:'Avg Sentence Length',burst:'Sentence Burstiness',ttr:'Type-Token Ratio',mattr:'Moving Avg TTR',avgWL:'Avg Word Length',transition:'Transition Words',hedge:'Hedge Words',firstPerson:'First-Person Use',contraction:'Contraction Rate',passive:'Passive Voice',filler:'Filler Phrases',bigram:'Bigram Repetition',punctE:'Punct. Entropy',longWord:'Long Word Ratio',exclQ:'Exclamations/Questions',conjStart:'Conjunction Starters',numeric:'Numeric Density',rareWord:'Rare Word Ratio',sentEnd:'Sentence End Variety',paraVar:'Paragraph Variance',comma:'Commas Per Sentence',formal:'Formal Vocabulary',imper:'Imperative Sentences',qMarks:'Question Marks'};
-  const grid=document.getElementById('sigGrid');
+  var wl=getWords(text).length;
+  document.getElementById('confVal').textContent=wl>=200?'High':wl>=100?'Medium':'Low';
+  var vb=document.getElementById('verdictBanner');
+  vb.style.background=vbg;vb.style.border='1px solid '+vbord;
+  document.getElementById('vIcon').innerHTML=icon;
+  document.getElementById('vTitle').textContent=label+' - '+sc+'% AI';
+  var subs={
+    'Likely AI':'Multiple strong AI patterns detected. Review highlighted sentences.',
+    'Possibly AI':'Several AI patterns found. Some sentences may need revision.',
+    'Borderline':'Mixed signals. Could be AI-assisted or formal writing style.',
+    'Likely Human':'Text appears naturally written with human-like patterns.'
+  };
+  document.getElementById('vSub').textContent=subs[label]||'';
+  var names={avgSL:'Avg Sentence Length',burst:'Sentence Burstiness',ttr:'Type-Token Ratio',mattr:'Moving Avg TTR',avgWL:'Avg Word Length',trans:'Transition Words',hedge:'Hedge Words',firstP:'First-Person Pronouns',contr:'Contraction Rate',passive:'Passive Voice',filler:'Filler Phrases',bigram:'Bigram Repetition',punctE:'Punctuation Entropy',longW:'Long Word Ratio',exclQ:'Exclamations/Questions',conjS:'Conj. Starters',numeric:'Numeric Density',rareW:'Rare Word Ratio',sentEnd:'Sentence End Variety',paraV:'Paragraph Variance',comma:'Commas/Sentence',formal:'Formal Vocabulary',imper:'Imperative Sentences',qmark:'Question Marks'};
+  var grid=document.getElementById('sigGrid');
   grid.innerHTML='';
-  Object.entries(res.signals).forEach(([k,v])=>{
-    const cls=v<35?'good':v<65?'warn':'bad';
-    grid.innerHTML+=`<div class="sig-item ${cls}"><div class="sig-name">${sigNames[k]||k}</div><div class="sig-val">${Math.round(v)}% AI-like</div></div>`;
+  Object.keys(res.signals).forEach(function(k){
+    var v=res.signals[k];
+    var cls=v<35?'good':v<65?'warn':'bad';
+    var d=document.createElement('div');
+    d.className='sig-item '+cls;
+    d.innerHTML='<div class="sig-name">'+(names[k]||k)+'</div><div class="sig-val">'+Math.round(v)+'% AI-like</div>';
+    grid.appendChild(d);
   });
   renderHighlights(text,res.sents);
 }
 
-// ---- AI Assistant ----
+// AI Assistant
 function sendChat(){
-  const input=document.getElementById('chatInput');
-  const q=input.value.trim();if(!q)return;
-  if(!_analysisData){addMsg('Please run an analysis first!','bot');return}
-  addMsg(q,'user');input.value='';
-  setTimeout(()=>addMsg(chatReply(q),'bot'),300);
+  var inp=document.getElementById('chatInput');
+  var q=inp.value.trim();
+  if(!q)return;
+  if(!_data){addMsg('Please run an analysis first!','bot');return;}
+  addMsg(q,'user');
+  inp.value='';
+  setTimeout(function(){addMsg(chatReply(q),'bot');},300);
 }
 
-function addMsg(text,who){
-  const cb=document.getElementById('chatBox');
-  const d=document.createElement('div');
-  d.className='msg '+who;d.innerHTML=text;
-  cb.appendChild(d);cb.scrollTop=cb.scrollHeight;
+function addMsg(html,who){
+  var box=document.getElementById('chatBox');
+  var d=document.createElement('div');
+  d.className='msg '+who;
+  d.innerHTML=html;
+  box.appendChild(d);
+  box.scrollTop=box.scrollHeight;
 }
 
 function chatReply(q){
-  const ql=q.toLowerCase();
-  const d=_analysisData;
-  const score=d.score;
-  const sents=d.sents||[];
-  const scored=sents.map(s=>({s,sc:scoreSentence(s)})).sort((a,b)=>b.sc-a.sc);
-  const topAI=scored.slice(0,3);
-  const topHuman=scored.slice(-3).reverse();
+  var ql=q.toLowerCase();
+  var d=_data;
+  var sc=d.score;
+  var scored=d.sents.map(function(s){return {s:s,sc:scoreSent(s)};}).sort(function(a,b){return b.sc-a.sc;});
+  var topAI=scored.slice(0,3);
+  var topHuman=scored.slice(-3).reverse();
 
   if(ql.match(/most ai|highest|worst|top sent/)){
-    if(!topAI.length)return 'No sentences found to rank.';
-    return 'The most AI-like sentences are:<br><br>'+topAI.map((x,i)=>`<b>${i+1}.</b> "${x.s.trim().slice(0,80)}..." — <b>${x.sc}% AI</b>`).join('<br><br>');
+    if(!topAI.length)return 'No sentences found.';
+    var lines=topAI.map(function(x,i){return '<b>'+(i+1)+'.</b> "'+x.s.trim().slice(0,80)+'..." = <b>'+x.sc+'% AI</b>';});
+    return 'Most AI-like sentences:<br><br>'+lines.join('<br><br>');
   }
   if(ql.match(/most human|natural|lowest/)){
     if(!topHuman.length)return 'No sentences found.';
-    return 'The most human-like sentences are:<br><br>'+topHuman.map((x,i)=>`<b>${i+1}.</b> "${x.s.trim().slice(0,80)}..." — <b>${x.sc}% AI</b>`).join('<br><br>');
+    var lines2=topHuman.map(function(x,i){return '<b>'+(i+1)+'.</b> "'+x.s.trim().slice(0,80)+'..." = <b>'+x.sc+'% AI</b>';});
+    return 'Most human-like sentences:<br><br>'+lines2.join('<br><br>');
   }
   if(ql.match(/why.*high|reason|why.*score|what.*flag/)){
-    const topSigs=Object.entries(d.signals).sort((a,b)=>b[1]-a[1]).slice(0,4);
-    return 'The main AI signals driving the score are:<br><br>'+topSigs.map(([k,v])=>`&bull; <b>${k}</b>: ${Math.round(v)}% AI-like`).join('<br>');
+    var topSigs=Object.keys(d.signals).map(function(k){return {k:k,v:d.signals[k]};}).sort(function(a,b){return b.v-a.v;}).slice(0,4);
+    var lines3=topSigs.map(function(x){return '&bull; <b>'+x.k+'</b>: '+Math.round(x.v)+'% AI-like';});
+    return 'Top AI signals driving the score:<br><br>'+lines3.join('<br>');
   }
   if(ql.match(/fix|improv|rewrite|what.*do|how.*lower/)){
-    const tips=[];
-    if(d.signals.firstPerson>60)tips.push('Add more first-person pronouns (I, my, we)');
-    if(d.signals.contraction>60)tips.push("Use contractions (don't, it's, I've)");
-    if(d.signals.transition>60)tips.push('Reduce transition words (however, furthermore)');
-    if(d.signals.passive>60)tips.push('Convert passive voice to active voice');
+    var tips=[];
+    if(d.signals.firstP>60)tips.push('Add first-person pronouns (I, my, we)');
+    if(d.signals.contr>60)tips.push("Use contractions (don't, it's, I've)");
+    if(d.signals.trans>60)tips.push('Reduce transition words (however, furthermore)');
+    if(d.signals.passive>60)tips.push('Convert passive to active voice');
     if(d.signals.filler>60)tips.push('Remove filler phrases (it is important to note...)');
-    if(d.signals.rareWord>60)tips.push('Replace formal/rare words with simpler alternatives');
+    if(d.signals.rareW>60)tips.push('Replace rare/formal words with simpler ones');
     if(d.signals.avgSL>60)tips.push('Break up long sentences');
-    if(!tips.length)tips.push('Add personal anecdotes','Vary your sentence lengths more','Include questions or direct address');
-    return 'Here are specific improvements:<br><br>'+tips.map(t=>`&bull; ${t}`).join('<br>');
+    if(!tips.length)tips=['Add personal anecdotes','Vary sentence lengths','Include direct questions'];
+    return 'Specific improvements:<br><br>'+tips.map(function(t){return '&bull; '+t;}).join('<br>');
   }
   if(ql.match(/score|percent|result|total/)){
-    return `Your text scored <b>${score}%</b> AI probability across 24 signals. ${score>=70?'This is high — many AI patterns were detected.':score>=50?'This is moderate — some AI patterns found.':score>=30?'This is borderline — could be formal writing or AI-assisted.':'This is low — the text appears mostly human-written.'}`;
+    var msg=sc>=70?'High - many AI patterns detected.':sc>=50?'Moderate - some AI patterns found.':sc>=30?'Borderline - could be formal writing.':'Low - appears mostly human-written.';
+    return 'Your score is <b>'+sc+'% AI</b>. '+msg;
   }
-  if(ql.match(/how many sent|count|sentence/)){
-    const aiCount=scored.filter(x=>x.sc>=50).length;
-    return `Your text has <b>${sents.length}</b> sentences total. <b>${aiCount}</b> of them score 50%+ for AI probability.`;
+  if(ql.match(/how many|count|sentence/)){
+    var aiCnt=scored.filter(function(x){return x.sc>=50;}).length;
+    return 'Total: <b>'+d.sents.length+'</b> sentences. <b>'+aiCnt+'</b> score 50%+ for AI.';
   }
   if(ql.match(/signal|feature|check/)){
-    return 'I check <b>24 signals</b> including: sentence length, vocabulary diversity (TTR/MATTR), transition word density, first-person pronouns, contractions, passive voice, rare word usage, formal vocabulary, filler phrases, burstiness, punctuation entropy, bigram repetition, and more. Each is weighted and combined into a final score.';
+    return 'I check <b>24 signals</b> including: sentence length, vocabulary diversity (TTR/MATTR), transition words, first-person pronouns, contractions, passive voice, rare words, formal vocab, filler phrases, burstiness, punctuation entropy, and more.';
   }
   if(ql.match(/private|send|server|data/)){
-    return '&#x1F512; <b>100% private.</b> All analysis runs locally in your browser using JavaScript. No text is ever sent to any server.';
+    return '&#x1F512; <b>100% private.</b> All analysis runs in your browser. Nothing is sent anywhere.';
   }
-  // Default
-  return `I've analyzed your text and found a <b>${score}% AI score</b>. You can ask me: <br>&bull; "Which sentences are most AI?"<br>&bull; "Why did this score so high?"<br>&bull; "What can I fix?"<br>&bull; "How many sentences flagged?"`;
+  return 'Score: <b>'+sc+'% AI</b>. Ask me:<br>&bull; "Which sentences are most AI?"<br>&bull; "Why did this score high?"<br>&bull; "What can I fix?"<br>&bull; "How many sentences flagged?"';
 }
 
-// ---- Humanizer ----
+// Humanizer
 function doHumanize(){
-  if(!_analysisData){alert('Run an analysis first!');return}
-  const text=_analysisData.text;
-  const intensity=document.getElementById('humIntensity').value;
-  const sents=_analysisData.sents;
-  const scored=sents.map(s=>({s,sc:scoreSentence(s)}));
-  const threshold=intensity==='light'?70:intensity==='medium'?50:35;
-  
-  // Collect human-style stats from low-scoring sentences
-  const humanSents=scored.filter(x=>x.sc<35).map(x=>x.s);
-  const humanWords=humanSents.flatMap(s=>words(s));
-  const humanAvgLen=humanWords.length>0?humanWords.reduce((a,b)=>a+b.length,0)/humanWords.length:4.5;
-  const humanAvgSentLen=humanSents.length>0?humanSents.reduce((a,s)=>a+words(s).length,0)/humanSents.length:12;
-  
-  const result=scored.map(({s,sc})=>{
-    if(sc<threshold)return s;
-    return humanizeSentence(s,intensity,humanAvgLen,humanAvgSentLen);
+  if(!_data){alert('Run an analysis first!');return;}
+  var intensity=document.getElementById('humIntensity').value;
+  var sents=_data.sents;
+  var threshold=intensity==='light'?70:intensity==='medium'?50:35;
+  var humanSents=sents.filter(function(s){return scoreSent(s)<35;});
+  var humanWs=humanSents.reduce(function(a,s){return a.concat(getWords(s));},[]); 
+  var result=sents.map(function(s){
+    if(scoreSent(s)<threshold)return s;
+    return humanizeSent(s,intensity);
   });
-  
-  const output=document.getElementById('humanizedOutput');
-  output.textContent=result.join(' ');
-  output.style.display='block';
-  document.getElementById('humanizedButtons').style.display='block';
+  var out=document.getElementById('humOutput');
+  out.textContent=result.join(' ');
+  out.style.display='block';
+  document.getElementById('copyBtn').style.display='inline-block';
 }
 
-function humanizeSentence(sent,intensity,humanAvgWL,humanAvgSL){
-  let s=sent.trim();
-  // Remove filler openers
-  const fillerOpeners=['It is important to note that','It is worth noting that','It should be noted that','Notably,','Importantly,','Furthermore,','Moreover,','Additionally,','Consequently,','In conclusion,','In summary,','First and foremost,','Last but not least,'];
-  fillerOpeners.forEach(f=>{if(s.startsWith(f))s=s.slice(f.length).trim();});
-  // Capitalize
+function humanizeSent(s,intensity){
+  var openers=['It is important to note that','It is worth noting that','It should be noted that','Notably,','Importantly,','Furthermore,','Moreover,','Additionally,','Consequently,','In conclusion,','In summary,','First and foremost,','Last but not least,'];
+  openers.forEach(function(f){if(s.trim().indexOf(f)===0)s=s.slice(f.length).trim();});
   if(s.length)s=s[0].toUpperCase()+s.slice(1);
-  // Add contractions
-  const contrMap={'do not':'don\'t','does not':'doesn\'t','did not':'didn\'t','is not':'isn\'t','are not':'aren\'t','was not':'wasn\'t','were not':'weren\'t','have not':'haven\'t','has not':'hasn\'t','had not':'hadn\'t','will not':'won\'t','would not':'wouldn\'t','could not':'couldn\'t','should not':'shouldn\'t','it is':'it\'s','that is':'that\'s','there is':'there\'s','what is':'what\'s','I am':'I\'m','I have':'I\'ve','I will':'I\'ll','they are':'they\'re','we are':'we\'re','you are':'you\'re'};
-  Object.entries(contrMap).forEach(([full,contr])=>{s=s.replace(new RegExp(full,'gi'),contr)});
-  // Replace rare/formal words
-  const replMap={utilize:'use',facilitate:'help',implementation:'use',methodology:'approach',aforementioned:'this',leverage:'use',synergy:'teamwork',delve:'explore',comprehensive:'full',multifaceted:'complex',nuanced:'subtle',elucidate:'explain',ascertain:'find out',necessitate:'need',encapsulate:'sum up',epitomize:'show',substantiate:'support',ameliorate:'improve',holistic:'overall',optimal:'best',pivotal:'key',paramount:'most important',proliferate:'spread',culminate:'end',underscore:'highlight',promulgate:'spread'};
-  Object.entries(replMap).forEach(([formal,simple])=>{s=s.replace(new RegExp('\\b'+formal+'\\b','gi'),simple)});
-  // Convert some passive voice patterns
+  var cm={'do not':"don't",'does not':"doesn't",'did not':"didn't",'is not':"isn't",'are not':"aren't",'was not':"wasn't",'were not':"weren't",'have not':"haven't",'has not':"hasn't",'had not':"hadn't",'will not':"won't",'would not':"wouldn't",'could not':"couldn't",'should not':"shouldn't",'it is':"it's",'that is':"that's",'there is':"there's",'what is':"what's",'I am':"I'm",'I have':"I've",'I will':"I'll",'they are':"they're",'we are':"we're",'you are':"you're"};
+  Object.keys(cm).forEach(function(k){s=s.replace(new RegExp(k,'gi'),cm[k]);});
+  var rm={'utilize':'use','facilitate':'help','implementation':'use','methodology':'approach','aforementioned':'this','leverage':'use','synergy':'teamwork','delve':'explore','comprehensive':'full','multifaceted':'complex','nuanced':'subtle','elucidate':'explain','ascertain':'find out','necessitate':'need','encapsulate':'sum up','ameliorate':'improve','holistic':'overall','optimal':'best','pivotal':'key','paramount':'most important'};
+  Object.keys(rm).forEach(function(k){s=s.replace(new RegExp('\\b'+k+'\\b','gi'),rm[k]);});
   s=s.replace(/is being ([a-z]+ed)/gi,'is $1');
   s=s.replace(/are being ([a-z]+ed)/gi,'are $1');
-  // If heavy, break long sentences
   if(intensity==='heavy'){
-    const ws=words(s);
+    var ws=getWords(s);
     if(ws.length>25){
-      const mid=Math.floor(ws.length/2);
-      const allWords=s.split(' ');
-      const first=allWords.slice(0,mid).join(' ');
-      const second=allWords.slice(mid).join(' ');
-      s=first+'. '+second[0].toUpperCase()+second.slice(1);
+      var allW=s.split(' ');
+      var mid=Math.floor(allW.length/2);
+      var first=allW.slice(0,mid).join(' ');
+      var second=allW.slice(mid).join(' ');
+      if(second.length)s=first+'. '+second[0].toUpperCase()+second.slice(1);
     }
   }
   return s;
 }
 
 function copyHumanized(){
-  const text=document.getElementById('humanizedOutput').textContent;
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn=document.querySelector('.copy-btn');
-    btn.textContent='Copied!';setTimeout(()=>btn.textContent='\u{1F4CB} Copy Humanized Text',2000);
+  var text=document.getElementById('humOutput').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn=document.getElementById('copyBtn');
+    btn.textContent='Copied!';
+    setTimeout(function(){btn.textContent='&#x1F4CB; Copy Result';},2000);
   });
 }
 
-// ---- Misc ----
 function clearAll(){
   document.getElementById('txt').value='';
   document.getElementById('wc').textContent='0 words';
   document.getElementById('resultsSection').style.display='none';
-  _analysisData=null;
+  _data=null;
 }
 
 document.getElementById('txt').addEventListener('input',function(){
-  const w=words(this.value);
-  document.getElementById('wc').textContent=w.length+' words';
+  document.getElementById('wc').textContent=getWords(this.value).length+' words';
 });
 </script>
 </body>
-</html>
+  </html>
