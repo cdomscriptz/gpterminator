@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GPTerminator V3</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0f1a;color:#e2e8f0;min-height:100vh}
+header{background:linear-gradient(135deg,#6d28d9 0%,#4f46e5 50%,#0ea5e9 100%);padding:28px 20px 22px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;top:-40px;left:-40px;width:200px;height:200px;background:rgba(255,255,255,0.06);border-radius:50%}
+header::after{content:'';position:absolute;bottom:-60px;right:-30px;width:250px;height:250px;background:rgba(255,255,255,0.04);border-radius:50%}
+header h1{font-size:32px;font-weight:800;color:#fff;letter-spacing:-0.5px;position:relative}
+header h1 span{color:#a5f3fc}
+header .sub{font-size:13px;color:rgba(255,255,255,0.75);margin-top:6px;position:relative}
+header .badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:3px 12px;font-size:11px;color:#fff;margin-top:8px;position:relative}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+.welcome-card{background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border:1px solid #3730a3;border-radius:16px;padding:20px 24px;margin-bottom:22px;display:flex;align-items:flex-start;gap:16px}
+.welcome-card .icon{font-size:32px;flex-shrink:0;margin-top:2px}
+.welcome-card h2{font-size:16px;font-weight:700;color:#a5b4fc;margin-bottom:6px}
+.welcome-card p{font-size:13px;color:#94a3b8;line-height:1.6}
+.welcome-card .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tag{background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);border-radius:20px;padding:2px 10px;font-size:11px;color:#a5b4fc}
+.input-card{background:#161625;border:1px solid #2d2d4e;border-radius:16px;padding:20px;margin-bottom:18px}
+.row-between{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.input-label{font-size:14px;font-weight:700;color:#e2e8f0}
+.word-badge{background:#1e1e3a;border:1px solid #3f3f6e;border-radius:20px;padding:3px 12px;font-size:12px;color:#94a3b8}
+textarea{width:100%;height:200px;background:#0f0f1a;color:#e2e8f0;border:1.5px solid #2d2d4e;border-radius:12px;padding:14px;font-size:14px;line-height:1.7;resize:vertical;outline:none;transition:border-color .2s}
+textarea:focus{border-color:#6d28d9}
+textarea::placeholder{color:#3f3f6e}
+.hint{font-size:12px;color:#4b5563;margin-top:8px}
+.hint b{color:#6d28d9}
+.btn-row{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.btn-analyze{background:linear-gradient(135deg,#6d28d9,#4f46e5);color:#fff;border:none;padding:12px 32px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.3px;transition:opacity .2s;display:flex;align-items:center;gap:8px}
+.btn-analyze:hover{opacity:.88}
+.btn-analyze:disabled{opacity:.45;cursor:not-allowed}
+.btn-clear{background:#1e1e3a;color:#94a3b8;border:1.5px solid #2d2d4e;padding:12px 22px;border-radius:12px;font-size:15px;cursor:pointer;transition:background .2s}
+.btn-clear:hover{background:#2d2d4e;color:#e2e8f0}
+.spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+#results{margin-top:8px;display:none}
+.verdict-card{border-radius:16px;overflow:hidden;margin-bottom:18px;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+.verdict-header{padding:24px;text-align:center}
+.verdict-emoji{font-size:48px;margin-bottom:10px;display:block}
+.verdict-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px}
+.verdict-sub{font-size:14px;color:rgba(255,255,255,0.8);max-width:500px;margin:0 auto}
+.scores-row{display:flex;background:#161625;border:1px solid #2d2d4e;border-radius:16px;margin-bottom:18px;overflow:hidden}
+.score-block{flex:1;padding:20px;text-align:center;position:relative}
+.score-block+.score-block{border-left:1px solid #2d2d4e}
+.score-metric{font-size:11px;font-weight:700;letter-spacing:.08em;color:#64748b;margin-bottom:6px;text-transform:uppercase}
+.score-number{font-size:38px;font-weight:800;line-height:1}
+.score-sub{font-size:12px;color:#64748b;margin-top:6px}
+.gauge-wrap{width:120px;height:60px;margin:10px auto 0;position:relative}
+.gauge-svg{width:120px;height:60px}
+.section-title{font-size:13px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:#2d2d4e}
+.signals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:18px}
+.signal-card{background:#161625;border:1.5px solid #2d2d4e;border-radius:12px;padding:14px 16px;transition:border-color .2s}
+.signal-card.ai{border-color:#7f1d1d}
+.signal-card.human{border-color:#14532d}
+.signal-card.neutral{border-color:#2d2d4e}
+.sig-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.sig-name{font-size:12px;font-weight:600;color:#e2e8f0;line-height:1.3}
+.sig-badge{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px}
+.sig-badge.ai{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3)}
+.sig-badge.human{background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.3)}
+.sig-badge.neutral{background:rgba(100,116,139,0.15);color:#94a3b8;border:1px solid rgba(100,116,139,0.3)}
+.sig-bar-bg{height:6px;background:#0f0f1a;border-radius:3px;overflow:hidden;margin-bottom:6px}
+.sig-bar-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.sig-value{font-size:11px;color:#64748b}
+.tips-card{background:linear-gradient(135deg,#0c2340,#0a1628);border:1px solid #1e3a5f;border-radius:16px;padding:20px 24px;margin-bottom:18px}
+.tips-card h3{font-size:14px;font-weight:700;color:#7dd3fc;margin-bottom:12px}
+.tip-item{display:flex;gap:10px;margin-bottom:8px;font-size:13px;color:#94a3b8;line-height:1.5}
+.tip-item:last-child{margin-bottom:0}
+.tip-dot{color:#0ea5e9;flex-shrink:0;font-weight:700}
+.note-bar{background:#161625;border:1px solid #2d2d4e;border-radius:10px;padding:12px 16px;font-size:12px;color:#4b5563;text-align:center;margin-bottom:8px}
+@media(max-width:600px){.signals-grid{grid-template-columns:1fr}.scores-row{flex-direction:column}.score-block+.score-block{border-left:none;border-top:1px solid #2d2d4e}.verdict-title{font-size:20px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🤖 GPTermin<span>ator</span> V3</h1>
+  <p class="sub">Advanced AI Writing Detector for Students &amp; Educators</p>
+  <span class="badge">✦ 20 Detection Signals ✦ Heuristic Engine ✦ Free &amp; Private</span>
+</header>
+<div class="container">
+  <div class="welcome-card">
+    <div class="icon">👋</div>
+    <div>
+      <h2>Hey there! Welcome to GPTerminator V3</h2>
+      <p>Paste any text below and our engine will analyze it across <strong>20 different signals</strong> to estimate how likely it is to be AI-generated. Works great for essays, emails, articles, and more.</p>
+      <div class="tags">
+        <span class="tag">📚 Student-Friendly</span>
+        <span class="tag">🔒 100% Private</span>
+        <span class="tag">⚡ Instant Results</span>
+        <span class="tag">🆓 Free Forever</span>
+      </div>
+    </div>
+  </div>
+  <div class="input-card">
+    <div class="row-between">
+      <span class="input-label">📋 Paste Your Text Here</span>
+      <span class="word-badge" id="wc">0 words</span>
+    </div>
+    <textarea id="txt" placeholder="Paste the text you want to check here... (200+ words gives the most accurate result)"></textarea>
+    <p class="hint">💡 Tip: <b>200+ words</b> gives the best accuracy. Shorter texts may be less reliable.</p>
+    <div class="btn-row">
+      <button class="btn-analyze" id="abtn" onclick="run()">
+        <span>🔍 Analyze Text</span>
+        <span class="spinner" id="spin"></span>
+      </button>
+      <button class="btn-clear" onclick="clearAll()">✕ Clear</button>
+    </div>
+  </div>
+  <div id="results"></div>
+</div><script>
+// ═══════════════════════════════════════════════════════════
+//  GPTerminator V3 — Detection Engine
+//  20 signals, recalibrated weights, student-accurate scoring
+// ═══════════════════════════════════════════════════════════
+
+document.getElementById('txt').addEventListener('input',function(){
+  const w=this.value.trim()?this.value.trim().split(/\s+/).length:0;
+  document.getElementById('wc').textContent=w+' word'+(w!==1?'s':'');
+});
+
+function tok(t){return t.toLowerCase().match(/[a-z']+/g)||[];}
+function sents(t){return t.trim().split(/(?<=[.!?])\s+/).filter(s=>s.trim().length>3);}
+function wc(s){return s.trim().split(/\s+/).filter(Boolean).length;}
+
+// S1: Average sentence length (AI = long uniform, Human = shorter varied)
+function s1(ss){if(!ss.length)return 0;return ss.reduce((a,s)=>a+wc(s),0)/ss.length;}
+
+// S2: Sentence length burstiness — CoV (low = AI)
+function s2(ss){
+  if(ss.length<2)return 1;
+  const ls=ss.map(wc),m=ls.reduce((a,b)=>a+b,0)/ls.length;
+  if(!m)return 0;
+  const sd=Math.sqrt(ls.reduce((a,v)=>a+(v-m)**2,0)/ls.length);
+  return sd/m;
+}
+
+// S3: Type-Token Ratio (low = AI repetitive)
+function s3(ws){if(!ws.length)return 1;return new Set(ws).size/ws.length;}
+
+// S4: Moving Average TTR over windows of 50 (more stable)
+function s4_mattr(ws){
+  if(ws.length<50)return s3(ws);
+  const W=50;let sum=0,count=0;
+  for(let i=0;i<=ws.length-W;i++){sum+=new Set(ws.slice(i,i+W)).size/W;count++;}
+  return sum/count;
+}
+
+// S5: Average word length
+function s5(ws){if(!ws.length)return 0;return ws.reduce((a,w)=>a+w.length,0)/ws.length;}
+
+// S6: Formal/academic transition density
+function s6(ws){
+  const t=new Set(["furthermore","moreover","additionally","consequently","therefore","however",
+    "nevertheless","nonetheless","specifically","notably","importantly","ultimately","essentially",
+    "significantly","particularly","overall","comprehensively","utilize","leverage","facilitate",
+    "demonstrate","indicate","ensure","enhance","implement","subsequently","accordingly","thus",
+    "hence","thereby","notwithstanding","aforementioned","herein","thereof","indeed","evidently",
+    "ostensibly","undeniably","unequivocally","undoubtedly","certainly","clearly","obviously"]);
+  if(!ws.length)return 0;
+  return ws.filter(w=>t.has(w)).length/ws.length*100;
+}
+
+// S7: Hedge word density (AI hedges a lot)
+function s7(ws){
+  const h=new Set(["may","might","could","should","would","appear","appears","seem","seems",
+    "suggest","suggests","possibly","perhaps","likely","unlikely","generally","typically",
+    "usually","often","sometimes","arguably","potentially","presumably","apparently","seemingly"]);
+  if(!ws.length)return 0;
+  return ws.filter(w=>h.has(w)).length/ws.length*100;
+}
+
+// S8: First-person pronoun ratio (humans use more)
+function s8(ws){
+  const fp=new Set(["i","me","my","mine","myself","we","us","our","ours","ourselves"]);
+  if(!ws.length)return 0;
+  return ws.filter(w=>fp.has(w)).length/ws.length*100;
+}
+
+// S9: Contraction rate (humans use more — I'm, don't, can't etc.)
+function s9(t){
+  const cs=(t.match(/[a-z]+'[a-z]+/gi)||[]).length;
+  const ws=tok(t).length;
+  return ws?cs/ws*100:0;
+}
+
+// S10: Passive voice sentences %
+function s10(ss){
+  const aux=new Set(["is","are","was","were","be","been","being","has","have","had"]);
+  let n=0;
+  for(const s of ss){
+    const ws=tok(s);
+    let found=false;
+    for(let i=0;i<ws.length&&!found;i++){
+      if(aux.has(ws[i])){
+        for(let j=i+1;j<Math.min(ws.length,i+4);j++){
+          if(ws[j].length>3&&(ws[j].endsWith('ed')||ws[j].endsWith('en'))){n++;found=true;break;}
+        }
+      }
+    }
+  }
+  return ss.length?n/ss.length*100:0;
+}
+
+// S11: Filler/boilerplate phrase density
+function s11(tl,wc){
+  const f=["in conclusion","in summary","it is important to note","it is worth noting",
+    "it should be noted","as mentioned","as previously mentioned","in the context of",
+    "when it comes to","with that being said","that being said","needless to say",
+    "it goes without saying","at the end of the day","in today's world","in the modern era",
+    "it is crucial","play a crucial role","play a pivotal role","dive into","delve into",
+    "shed light","moving forward","going forward","game changer","paradigm shift","synergy",
+    "holistic approach","touch base","circle back","it is worth mentioning","as a result",
+    "in this essay","in this paper","this essay will","this paper will","it can be seen",
+    "it is clear that","it is evident that","one must consider","one could argue",
+    "it is fascinating","this is fascinating","intricacies of","the nuances of",
+    "in today's fast-paced","rapidly evolving","ever-changing landscape","in recent years",
+    "throughout history","it is no secret","a wide range of","a variety of ways"];
+  let cnt=0;
+  for(const ph of f){let p=0;while((p=tl.indexOf(ph,p))!==-1){cnt++;p+=ph.length;}}
+  return wc?cnt/wc*100:0;
+}
+
+// S12: Bigram repetition
+function s12(ws){
+  if(ws.length<4)return 0;
+  const bg={};
+  for(let i=0;i<ws.length-1;i++){const k=ws[i]+' '+ws[i+1];bg[k]=(bg[k]||0)+1;}
+  const rep=Object.values(bg).reduce((a,v)=>a+(v>1?v-1:0),0);
+  return rep/ws.length*100;
+}
+
+// S13: Punctuation entropy (AI = low diversity — mostly periods and commas)
+function s13(t){
+  const ps=t.split('').filter(c=>/[^\w\s]/.test(c));
+  if(!ps.length)return 0;
+  const cnt={};for(const c of ps)cnt[c]=(cnt[c]||0)+1;
+  const tot=ps.length;
+  return -Object.values(cnt).reduce((a,v)=>{const p=v/tot;return a+p*Math.log2(p);},0);
+}
+
+// S14: Long word ratio (>9 chars — formal academic style)
+function s14(ws){if(!ws.length)return 0;return ws.filter(w=>w.length>9).length/ws.length*100;}
+
+// S15: Exclamation / question mark usage (humans use more informally)
+function s15(t){
+  const exQ=(t.match(/[!?]/g)||[]).length;
+  const totSents=sents(t).length||1;
+  return exQ/totSents*100;
+}
+
+// S16: Sentences starting with conjunctions (But, And, So, Yet — more human)
+function s16(ss){
+  const conj=new Set(["but","and","so","yet","or","nor","for","because","although","though","while"]);
+  if(!ss.length)return 0;
+  const n=ss.filter(s=>{const w=s.trim().split(/\s+/)[0];return conj.has(w.toLowerCase().replace(/[^a-z]/g,''));}).length;
+  return n/ss.length*100;
+}
+
+// S17: Numeric / data density (AI loves citing statistics)
+function s17(t,ws){
+  const nums=(t.match(/\b\d+\.?\d*%?\b/g)||[]).length;
+  return ws?nums/ws*100:0;
+}
+
+// S18: Rare word usage — words > 12 chars (AI uses more obscure vocabulary)
+function s18(ws){if(!ws.length)return 0;return ws.filter(w=>w.length>12).length/ws.length*100;}
+
+// S19: Sentence-ending variety — ratio of non-period endings
+function s19(t){
+  const totals=t.match(/[.!?]/g)||[];
+  if(!totals.length)return 0;
+  const nonPeriod=(t.match(/[!?]/g)||[]).length;
+  return nonPeriod/totals.length*100;
+}
+
+// S20: Avg paragraph length variance (AI = uniform paragraphs)
+function s20(t){
+  const paras=t.split(/\n\n+/).filter(p=>p.trim().length>10);
+  if(paras.length<2)return 1;
+  const lens=paras.map(p=>p.trim().split(/\s+/).length);
+  const m=lens.reduce((a,b)=>a+b,0)/lens.length;
+  if(!m)return 0;
+  const sd=Math.sqrt(lens.reduce((a,v)=>a+(v-m)**2,0)/lens.length);
+  return sd/m;
+}
+
+// ─── MASTER SCORER ───────────────────────────────────────
+function analyze(text){
+  const tl=text.toLowerCase();
+  const ws=tok(text);
+  const ss=sents(text);
+  const wcount=ws.length;
+
+  const f={
+    avgSL:     s1(ss),
+    burst:     s2(ss),
+    ttr:       s3(ws),
+    mattr:     s4_mattr(ws),
+    awl:       s5(ws),
+    trans:     s6(ws),
+    hedge:     s7(ws),
+    fp:        s8(ws),
+    contract:  s9(text),
+    passive:   s10(ss),
+    filler:    s11(tl,wcount),
+    bigram:    s12(ws),
+    pent:      s13(text),
+    longw:     s14(ws),
+    exclq:     s15(text),
+    conjStart: s16(ss),
+    numeric:   s17(text,wcount),
+    rarew:     s18(ws),
+    endVar:    s19(text),
+    paraVar:   s20(text),
+    wordCount: wcount,
+    sentCount: ss.length
+  };
+
+  // ── Weighted scoring (recalibrated to match ZeroGPT scale) ──
+  // Positive pts = AI signal; negative = human signal
+  // Total max ~130 pts normalised to 0-100
+  let pts=0;
+
+  // S1 avg sent len — AI tends 20-30, human 8-15
+  if(f.avgSL>=26)pts+=10;else if(f.avgSL>=22)pts+=8;else if(f.avgSL>=18)pts+=5;
+  else if(f.avgSL<=11)pts-=8;else if(f.avgSL<=14)pts-=3;
+
+  // S2 burstiness — low CoV = AI (uniform)
+  if(f.burst<=0.15)pts+=12;else if(f.burst<=0.25)pts+=9;else if(f.burst<=0.38)pts+=5;
+  else if(f.burst>=0.75)pts-=8;else if(f.burst>=0.55)pts-=3;
+
+  // S3 TTR — low = AI
+  if(f.ttr<=0.40)pts+=8;else if(f.ttr<=0.52)pts+=5;else if(f.ttr<=0.62)pts+=2;
+  else if(f.ttr>=0.82)pts-=5;
+
+  // S4 MATTR — more stable vocab measure, low = AI
+  if(f.mattr<=0.62)pts+=8;else if(f.mattr<=0.72)pts+=4;
+  else if(f.mattr>=0.88)pts-=5;
+
+  // S5 avg word len
+  if(f.awl>=6.0)pts+=7;else if(f.awl>=5.5)pts+=5;else if(f.awl>=5.0)pts+=2;
+  else if(f.awl<=3.8)pts-=5;else if(f.awl<=4.2)pts-=2;
+
+  // S6 transition density
+  if(f.trans>=2.5)pts+=12;else if(f.trans>=1.5)pts+=9;else if(f.trans>=0.8)pts+=5;
+  else if(f.trans===0)pts-=3;
+
+  // S7 hedge density
+  if(f.hedge>=5.0)pts+=8;else if(f.hedge>=3.0)pts+=5;else if(f.hedge>=1.8)pts+=2;
+  else if(f.hedge<=0.4)pts-=2;
+
+  // S8 first person — HIGH = human
+  if(f.fp>=4.0)pts-=12;else if(f.fp>=2.5)pts-=8;else if(f.fp>=1.2)pts-=4;
+  else if(f.fp<=0.2)pts+=8;
+
+  // S9 contractions — HIGH = human
+  if(f.contract>=3.5)pts-=10;else if(f.contract>=2.0)pts-=6;else if(f.contract>=0.8)pts-=2;
+  else if(f.contract<=0.1)pts+=7;
+
+  // S10 passive voice
+  if(f.passive>=55)pts+=9;else if(f.passive>=35)pts+=6;else if(f.passive>=18)pts+=2;
+  else if(f.passive<=5)pts-=4;
+
+  // S11 filler phrases — strong AI signal
+  if(f.filler>=1.2)pts+=12;else if(f.filler>=0.6)pts+=8;else if(f.filler>=0.25)pts+=4;
+  else if(f.filler===0)pts-=2;
+
+  // S12 bigram repetition
+  if(f.bigram>=4.0)pts+=6;else if(f.bigram>=2.0)pts+=3;
+
+  // S13 punctuation entropy — low = AI
+  if(f.pent<=0.8)pts+=7;else if(f.pent<=1.3)pts+=4;
+  else if(f.pent>=2.8)pts-=7;else if(f.pent>=2.2)pts-=3;
+
+  // S14 long word ratio
+  if(f.longw>=18)pts+=5;else if(f.longw>=12)pts+=3;
+  else if(f.longw<=3)pts-=3;
+
+  // S15 exclamation/question — HIGH = human
+  if(f.exclq>=30)pts-=8;else if(f.exclq>=15)pts-=4;
+  else if(f.exclq<=2)pts+=5;
+
+  // S16 conjunction sentence starters — HIGH = human
+  if(f.conjStart>=20)pts-=8;else if(f.conjStart>=10)pts-=4;
+  else if(f.conjStart<=2)pts+=3;
+
+  // S17 numeric density — AI loves statistics
+  if(f.numeric>=2.5)pts+=5;else if(f.numeric>=1.2)pts+=2;
+
+  // S18 rare word usage
+  if(f.rarew>=6)pts+=5;else if(f.rarew>=3)pts+=2;
+  else if(f.rarew<=0.5)pts-=2;
+
+  // S19 sentence ending variety — low = AI (mostly periods)
+  if(f.endVar<=5)pts+=5;else if(f.endVar<=10)pts+=2;
+  else if(f.endVar>=30)pts-=5;
+
+  // S20 paragraph variance — low = AI (uniform paragraphs)
+  if(f.paraVar<=0.15)pts+=6;else if(f.paraVar<=0.30)pts+=3;
+  else if(f.paraVar>=0.80)pts-=4;
+
+  // Normalise: min theoretical ~ -65, max ~ +135 → map to 0-100
+  // Shift and scale so centre ~30pts maps to ~50%
+  const MIN=-65, MAX=135;
+  f.score=Math.max(0,Math.min(100,(pts-MIN)/(MAX-MIN)*100));
+
+  // Confidence
+  let ai=0,hu=0;
+  if(f.avgSL>=20)ai++;else if(f.avgSL<=12)hu++;
+  if(f.burst<=0.28)ai++;else if(f.burst>=0.65)hu++;
+  if(f.ttr<=0.55)ai++;else if(f.ttr>=0.80)hu++;
+  if(f.mattr<=0.68)ai++;else if(f.mattr>=0.85)hu++;
+  if(f.awl>=5.3)ai++;else if(f.awl<=4.0)hu++;
+  if(f.trans>=1.2)ai++;else if(f.trans===0)hu++;
+  if(f.hedge>=2.5)ai++;else if(f.hedge<=0.4)hu++;
+  if(f.fp<=0.3)ai++;else if(f.fp>=2.5)hu++;
+  if(f.contract<=0.2)ai++;else if(f.contract>=2.0)hu++;
+  if(f.passive>=35)ai++;else if(f.passive<=5)hu++;
+  if(f.filler>=0.5)ai++;else if(f.filler===0)hu++;
+  if(f.pent<=1.3)ai++;else if(f.pent>=2.5)hu++;
+  if(f.exclq<=2)ai++;else if(f.exclq>=20)hu++;
+  if(f.conjStart<=2)ai++;else if(f.conjStart>=15)hu++;
+  if(f.endVar<=5)ai++;else if(f.endVar>=25)hu++;
+  if(f.paraVar<=0.20)ai++;else if(f.paraVar>=0.70)hu++;
+
+  const dom=Math.max(ai,hu);
+  f.confidence=Math.min(97,38+dom/16*62);
+  f.pts=pts;
+  return f;
+}
+
+function vInfo(sc){
+  if(sc>=75)return{emoji:'🤖',title:'Very Likely AI-Generated',sub:'Strong evidence of machine authorship across multiple signals.',grad:'linear-gradient(135deg,#7f1d1d,#991b1b)',color:'#fca5a5'};
+  if(sc>=58)return{emoji:'⚠️',title:'Probably AI-Generated',sub:'Several signals point toward AI writing. May be AI-assisted.',grad:'linear-gradient(135deg,#7c2d12,#9a3412)',color:'#fdba74'};
+  if(sc>=42)return{emoji:'🤔',title:'Mixed — Hard to Tell',sub:'Signals are split. Could be AI-assisted, edited AI, or a formal human writer.',grad:'linear-gradient(135deg,#713f12,#854d0e)',color:'#fde68a'};
+  if(sc>=25)return{emoji:'✏️',title:'Probably Human-Written',sub:'Most signals suggest human authorship with some formal characteristics.',grad:'linear-gradient(135deg,#14532d,#166534)',color:'#86efac'};
+  return{emoji:'👤',title:'Very Likely Human-Written',sub:'Strong evidence of natural human writing across the board.',grad:'linear-gradient(135deg,#064e3b,#065f46)',color:'#6ee7b7'};
+}
+
+function lerp(c1,c2,t){
+  const h=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+  const [r1,g1,b1]=h(c1),[r2,g2,b2]=h(c2);
+  return '#'+[r1+(r2-r1)*t,g1+(g2-g1)*t,b1+(b2-b1)*t].map(v=>Math.round(v).toString(16).padStart(2,'0')).join('');
+}
+function sColor(r,aiDir){return aiDir?lerp('#4ade80','#ef4444',r):lerp('#ef4444','#4ade80',r);}
+function scoreColor(sc){if(sc>=75)return'#ef4444';if(sc>=58)return'#f97316';if(sc>=42)return'#eab308';if(sc>=25)return'#22c55e';return'#10b981';}
+
+function sigCard(label,val,max,aiDir,unit,desc){
+  const ratio=Math.max(0,Math.min(1,max?val/max:val));
+  const col=sColor(ratio,aiDir);
+  const isAI=aiDir?ratio>0.55:ratio<0.45;
+  const isHuman=aiDir?ratio<0.35:ratio>0.65;
+  const cls=isAI?'ai':isHuman?'human':'neutral';
+  const badgeCls=isAI?'ai':isHuman?'human':'neutral';
+  const badgeTxt=isAI?'↑ AI':isHuman?'↓ Human':'~';
+  const disp=max<=1?val.toFixed(3):val.toFixed(1);
+  return `<div class="signal-card ${cls}">
+    <div class="sig-top">
+      <span class="sig-name">${label}</span>
+      <span class="sig-badge ${badgeCls}">${badgeTxt}</span>
+    </div>
+    <div class="sig-bar-bg"><div class="sig-bar-fill" style="width:${ratio*100}%;background:${col}"></div></div>
+    <span class="sig-value">${disp} ${unit} — ${desc}</span>
+  </div>`;
+}
+
+function gaugeHTML(score,color){
+  const r=45,cx=60,cy=55;
+  const start={x:cx+r*Math.cos(Math.PI),y:cy+r*Math.sin(Math.PI)};
+  const end0={x:cx+r*Math.cos(0),y:cy+r*Math.sin(0)};
+  const angle=Math.PI*(1-score/100);
+  const endX=cx+r*Math.cos(angle+Math.PI);const endY=cy+r*Math.sin(angle+Math.PI);
+  const large=score>50?1:0;
+  return `<svg class="gauge-svg" viewBox="0 0 120 60">
+    <path d="M${start.x},${start.y} A${r},${r} 0 0 1 ${end0.x},${end0.y}" stroke="#1e1e3a" stroke-width="10" fill="none"/>
+    <path d="M${start.x},${start.y} A${r},${r} 0 ${large} 1 ${endX},${endY}" stroke="${color}" stroke-width="10" fill="none" stroke-linecap="round"/>
+  </svg>`;
+}
+
+function run(){
+  const text=document.getElementById('txt').value.trim();
+  if(!text){alert('Please paste some text first!');return;}
+  if(text.split(/\s+/).length<15){alert('Please provide at least 15 words for any result.');return;}
+  const btn=document.getElementById('abtn');
+  const sp=document.getElementById('spin');
+  btn.disabled=true;sp.style.display='inline-block';
+  setTimeout(()=>{
+    const f=analyze(text);
+    const v=vInfo(f.score);
+    const sc=f.score;
+    const col=scoreColor(sc);
+
+    const sigs=[
+      {l:'S1 · Avg Sentence Length',     v:f.avgSL,    max:35,  ai:true,  u:'words',   d:'AI writes longer, uniform sentences'},
+      {l:'S2 · Sentence Burstiness',      v:1-f.burst,  max:1,   ai:true,  u:'(inv)',   d:'Low variation = AI-like uniformity'},
+      {l:'S3 · Type-Token Ratio',         v:1-f.ttr,    max:1,   ai:true,  u:'(inv)',   d:'Low vocabulary diversity = AI'},
+      {l:'S4 · Moving Avg TTR (MATTR)',   v:1-f.mattr,  max:1,   ai:true,  u:'(inv)',   d:'Stable vocab metric, low = AI'},
+      {l:'S5 · Avg Word Length',          v:f.awl,      max:8,   ai:true,  u:'chars',   d:'AI uses longer formal words'},
+      {l:'S6 · Transition Word %',        v:f.trans,    max:5,   ai:true,  u:'%',       d:'AI overuses academic connectors'},
+      {l:'S7 · Hedge Word %',             v:f.hedge,    max:7,   ai:true,  u:'%',       d:'AI hedges excessively (may/might)'},
+      {l:'S8 · 1st-Person Pronouns',      v:f.fp,       max:6,   ai:false, u:'%',       d:'Humans use I/me/my much more'},
+      {l:'S9 · Contraction Rate',         v:f.contract, max:5,   ai:false, u:'%',       d:'Humans use contractions naturally'},
+      {l:'S10 · Passive Voice %',         v:f.passive,  max:80,  ai:true,  u:'%',       d:'AI heavily favours passive voice'},
+      {l:'S11 · Filler Phrase Density',   v:f.filler,   max:2,   ai:true,  u:'%',       d:'AI uses boilerplate openers/closers'},
+      {l:'S12 · Bigram Repetition',       v:f.bigram,   max:8,   ai:true,  u:'%',       d:'AI repeats structural phrase pairs'},
+      {l:'S13 · Punctuation Entropy',     v:1-Math.min(f.pent/4,1),max:1,ai:true,u:'(inv)',d:'Low punctuation diversity = AI'},
+      {l:'S14 · Long Word Ratio (>9ch)',  v:f.longw,    max:25,  ai:true,  u:'%',       d:'AI uses more multi-syllable words'},
+      {l:'S15 · Exclamation/Question ?!', v:f.exclq,    max:40,  ai:false, u:'%',       d:'Humans use ! and ? more naturally'},
+      {l:'S16 · Conjunction Starts',      v:f.conjStart,max:30,  ai:false, u:'%',       d:'Starting with But/And = human'},
+      {l:'S17 · Numeric/Data Density',    v:f.numeric,  max:4,   ai:true,  u:'%',       d:'AI loves citing statistics'},
+      {l:'S18 · Rare Word Ratio (>12ch)', v:f.rarew,    max:8,   ai:true,  u:'%',       d:'AI uses obscure academic vocab'},
+      {l:'S19 · Non-Period Endings',      v:1-Math.min(f.endVar/50,1),max:1,ai:true,u:'(inv)',d:'AI mostly ends sentences with periods'},
+      {l:'S20 · Paragraph Length Var.',   v:1-Math.min(f.paraVar,1),max:1,ai:true,u:'(inv)',d:'AI writes very uniform paragraphs'},
+    ];
+
+    const sigHTML=sigs.map(s=>sigCard(s.l,s.v,s.max,s.ai,s.u,s.d)).join('');
+
+    const tipsHTML=sc>=50?`
+      <div class="tips-card">
+        <h3>💡 Why might this score high?</h3>
+        <div class="tip-item"><span class="tip-dot">→</span><span>AI-generated text tends to be very uniform — sentences are similar lengths without much variation.</span></div>
+        <div class="tip-item"><span class="tip-dot">→</span><span>AI avoids contractions (like "I'm" or "don't") and first-person pronouns, which humans use naturally.</span></div>
+        <div class="tip-item"><span class="tip-dot">→</span><span>AI overuses transition phrases like "furthermore", "moreover", and "it is important to note."</span></div>
+        <div class="tip-item"><span class="tip-dot">→</span><span>If you used AI to help write this, consider rewriting key sections in your own voice and adding personal examples.</span></div>
+      </div>`:`
+      <div class="tips-card">
+        <h3>✅ This text looks human!</h3>
+        <div class="tip-item"><span class="tip-dot">→</span><span>The writing shows natural variation in sentence length and structure — a hallmark of human writing.</span></div>
+        <div class="tip-item"><span class="tip-dot">→</span><span>Personal pronouns and contractions were detected, which AI tends to avoid.</span></div>
+        <div class="tip-item"><span class="tip-dot">→</span><span>Remember: no detector is 100% accurate. This is a heuristic estimate based on writing patterns.</span></div>
+      </div>`;
+
+    const out=`
+      <div class="verdict-card">
+        <div class="verdict-header" style="background:${v.grad}">
+          <span class="verdict-emoji">${v.emoji}</span>
+          <div class="verdict-title">${v.title}</div>
+          <p class="verdict-sub">${v.sub}</p>
+        </div>
+      </div>
+      <div class="scores-row">
+        <div class="score-block">
+          <div class="score-metric">AI Score</div>
+          <div class="score-number" style="color:${col}">${sc.toFixed(1)}<span style="font-size:18px;color:#4b5563"> / 100</span></div>
+          <div class="gauge-wrap">${gaugeHTML(sc,col)}</div>
+        </div>
+        <div class="score-block">
+          <div class="score-metric">Confidence</div>
+          <div class="score-number" style="color:#818cf8">${f.confidence.toFixed(0)}<span style="font-size:18px;color:#4b5563">%</span></div>
+          <div class="score-sub">${f.wordCount} words · ${f.sentCount} sentences</div>
+        </div>
+      </div>
+      ${tipsHTML}
+      <div class="section-title">Signal Breakdown — all 20 indicators</div>
+      <div class="signals-grid">${sigHTML}</div>
+      <div class="note-bar">⚡ Accuracy improves with 200+ word samples. GPTerminator V3 uses heuristic analysis — not a neural model. Results are probabilistic.</div>
+    `;
+
+    document.getElementById('results').style.display='block';
+    document.getElementById('results').innerHTML=out;
+    btn.disabled=false;sp.style.display='none';
+    document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  },100);
+}
+
+function clearAll(){
+  document.getElementById('txt').value='';
+  document.getElementById('wc').textContent='0 words';
+  document.getElementById('results').style.display='none';
+  document.getElementById('results').innerHTML='';
+}
+</script>
+</body>
+</html>
